@@ -1,0 +1,105 @@
+# =====================================================================
+#  ONT long-read metagenome -> MAG workflow
+#  Reads -> Flye (meta) -> Medaka -> self + cross mapping ->
+#  MetaBAT2 / VAMB / SemiBin2 -> DAS_Tool -> CheckM2 / GUNC / barrnap /
+#  tRNAscan-SE -> MIMAG selection + renaming -> GTDB-Tk / skani ->
+#  detection (CoverM, read identity) -> read profiling -> annotation
+# =====================================================================
+import os
+import pandas as pd
+from snakemake.utils import min_version
+
+min_version("8.0")
+
+
+configfile: "config/config.yaml"
+
+
+OUT = config["outdir"]
+DB = config["databases"]
+MOD = config["modules"]
+T = config["threads"]
+MEM = config["mem_mb"]
+
+SAMPLES = pd.read_csv(config["samples"], sep="\t", dtype=str, comment="#").set_index(
+    "sample", drop=False
+)
+UNITS = pd.read_csv(config["units"], sep="\t", dtype=str, comment="#")
+UNITS["profile"] = UNITS.get("profile", "yes").fillna("yes").str.lower()
+
+for s in SAMPLES.index:
+    if not s.isalnum():
+        raise ValueError(f"Sample name '{s}' must contain only letters and digits.")
+    if s not in set(UNITS["sample"]):
+        raise ValueError(f"Sample '{s}' has no rows in {config['units']}.")
+
+ASM = SAMPLES[SAMPLES["role"] == "assemble"].index.tolist()  # assembled + used for binning coverage
+ALL = SAMPLES.index.tolist()  # every read set (incl. detect_only, e.g. public runs)
+PROFILE = sorted(UNITS[UNITS["profile"] == "yes"]["sample"].unique())
+
+if not ASM:
+    raise ValueError("At least one sample needs role 'assemble'.")
+
+
+def is_set(x):
+    return x is not None and str(x).strip() != ""
+
+
+wildcard_constraints:
+    sample="[A-Za-z0-9]+",
+    asm="[A-Za-z0-9]+",
+    reads="[A-Za-z0-9]+",
+    mag="[A-Za-z0-9]+_[A-Za-z0-9]+_MAG_[0-9]+",
+    ident="[0-9]+",
+
+
+include: "rules/qc.smk"
+include: "rules/assembly.smk"
+include: "rules/mapping.smk"
+include: "rules/binning.smk"
+include: "rules/mag_qc.smk"
+include: "rules/taxonomy.smk"
+include: "rules/detection.smk"
+include: "rules/read_profiling.smk"
+include: "rules/annotation.smk"
+include: "rules/phylogeny.smk"
+
+
+def all_targets(wc):
+    t = [
+        f"{OUT}/qc/read_stats.tsv",
+        f"{OUT}/qc/assembly_stats.tsv",
+        f"{OUT}/mags/mag_summary.tsv",
+        f"{OUT}/taxonomy/gtdbtk_summary.tsv",
+        f"{OUT}/taxonomy/skani_mags.tsv",
+    ]
+    if is_set(config.get("reference_genomes")):
+        t.append(f"{OUT}/taxonomy/skani_mags_vs_refs.tsv")
+    if MOD.get("detection"):
+        t += expand(f"{OUT}/detection/{{reads}}.calls.tsv", reads=ALL)
+        t.append(f"{OUT}/detection/coverm_all.tsv")
+    if MOD.get("read_profiling"):
+        t += expand(f"{OUT}/read_profiling/singlem/{{sample}}.phylum.tsv", sample=PROFILE)
+        if is_set(DB.get("kraken2")):
+            t += expand(f"{OUT}/read_profiling/kraken2/{{sample}}.bracken.tsv", sample=PROFILE)
+        if is_set(DB.get("kaiju_fmi")):
+            t += expand(f"{OUT}/read_profiling/kaiju/{{sample}}.table.tsv", sample=PROFILE)
+    if MOD.get("annotation"):
+        t += [f"{OUT}/annotation/summary/ko_matrix.tsv", f"{OUT}/annotation/summary/cazy_matrix.tsv",
+              f"{OUT}/annotation/summary/genomad_done.txt"]
+    if MOD.get("antismash"):
+        t.append(f"{OUT}/annotation/summary/antismash_done.txt")
+    if MOD.get("bakta"):
+        t.append(f"{OUT}/annotation/summary/bakta_done.txt")
+    if MOD.get("metabolic_models"):
+        t.append(f"{OUT}/metabolic_models/smetana/smetana_detailed.tsv")
+    if MOD.get("phylogeny"):
+        t.append(f"{OUT}/phylogeny/iqtree.done")
+    if MOD.get("gene_panel"):
+        t += expand(f"{OUT}/gene_panel/{{sample}}.counts.tsv", sample=PROFILE)
+    return t
+
+
+rule all:
+    input:
+        all_targets,

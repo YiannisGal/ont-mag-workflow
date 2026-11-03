@@ -1,0 +1,4 @@
+channels: [conda-forge, bioconda, nodefaults]
+dependencies:
+  - barrnap=0.9
+  - trnascan-se=2.0.12   # analysis used 2.0.13; pin that if your channel has it

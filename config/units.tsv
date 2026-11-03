@@ -1,0 +1,6 @@
+sample	unit	fastq	profile
+SED	lig01	/path/to/reads/SED_ligation_run01.fastq.gz	yes
+SED	rpb01	/path/to/reads/SED_rapidPCR_run01.fastq.gz	yes
+SED	amplicon01	/path/to/reads/SED_amplicon_run.fastq.gz	no
+LIQ	lib01	/path/to/reads/LIQ_library01.fastq.gz	yes
+LIQ	lib02	/path/to/reads/LIQ_library02.fastq.gz	yes

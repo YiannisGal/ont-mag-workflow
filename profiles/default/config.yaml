@@ -1,0 +1,7 @@
+# snakemake --workflow-profile profiles/default
+software-deployment-method: conda
+cores: 32
+printshellcmds: true
+keep-going: true
+rerun-incomplete: true
+latency-wait: 30

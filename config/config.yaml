@@ -1,0 +1,129 @@
+# =====================================================================
+#  ONT long-read metagenome -> MAG workflow (Etoliko workflow, generalised)
+#  Edit this file and the two sample sheets, then run (see README.md).
+# =====================================================================
+
+samples: config/samples.tsv     # one row per sample (assembly / detection role)
+units:   config/units.tsv       # one row per sequencing run (FASTQ file)
+outdir:  results
+
+# Final MAG IDs are <project_prefix>_<SAMPLE>_MAG_<NNN>, numbered by
+# descending quality (e.g. ETO_SED_MAG_001). Sample names: letters/digits only.
+project_prefix: ETO
+
+# ---------------------------------------------------------------------
+# Optional modules (true/false)
+# ---------------------------------------------------------------------
+modules:
+  detection: true          # identity-calibrated recruitment of reads to MAGs (CoverM + read-identity mode)
+  read_profiling: true     # SingleM always; Kraken2/Bracken and Kaiju only if their databases are set below
+  annotation: true         # Prodigal + KofamScan (curated thresholds) + dbCAN3 + geNomad
+  antismash: false         # biosynthetic gene clusters (slow)
+  bakta: false             # full Bakta annotation per MAG
+  metabolic_models: false  # gapseq models + SMETANA community interactions (very slow)
+  phylogeny: true          # GTDB-Tk marker alignment (+ your reference genomes) -> IQ-TREE
+  gene_panel: false        # competitive DIAMOND read search against your own protein panel (e.g. mcrA/mtmB/mtaB)
+
+# ---------------------------------------------------------------------
+# Reads
+# ---------------------------------------------------------------------
+reads:
+  dedup_by_name: true      # removes reads whose ID appears twice (e.g. a run uploaded twice)
+  min_len_assembly: 1000   # only reads >= this go into Flye; ALL reads are used for polishing/mapping
+
+# ---------------------------------------------------------------------
+# Assembly / polishing
+# ---------------------------------------------------------------------
+assembly:
+  flye_read_type: "--nano-hq"            # R10.4.1 + Dorado sup. Use --nano-raw for older chemistry.
+  flye_extra: "--meta --min-overlap 1000"
+  medaka_model: "r1041_e82_400bps_sup_v5.0.0"   # MUST match your flow cell / basecaller model
+  polish: true                            # set false to skip Medaka
+
+# ---------------------------------------------------------------------
+# Binning
+# ---------------------------------------------------------------------
+binning:
+  min_contig_len: 2000     # MetaBAT2 / VAMB / SemiBin2 minimum contig length
+  min_bin_size: 200000     # VAMB --minfasta
+  metabat2_extra: ""
+  vamb_extra: ""
+  semibin2_extra: "--sequencing-type long_read"
+  dastool_score_threshold: 0.5
+
+# ---------------------------------------------------------------------
+# MAG selection (MIMAG + GUNC). Bins failing these are kept in the
+# summary table but not copied to results/mags/fasta.
+# ---------------------------------------------------------------------
+mag_filter:
+  min_completeness: 50
+  max_contamination: 10
+  require_gunc_pass: true
+
+# ---------------------------------------------------------------------
+# Detection / abundance (recruitment of each read set to all MAGs)
+# ---------------------------------------------------------------------
+detection:
+  identities: [90, 95, 97, 99]   # CoverM --min-read-percent-identity sweep
+  min_read_aligned_percent: 50
+  same_species_identity_mode: 97 # mode of read-identity distribution >= this ...
+  same_species_breadth: 0.50     # ... and breadth at >=90% identity >= this -> "same-species population"
+  related_breadth: 0.10          # breadth at >=90% identity >= this (lower mode) -> "related population"
+  # Optional folder of extra genomes (isolates, close references) that compete
+  # for reads with the MAGs. Uncompressed .fa/.fna/.fasta. Leave "" to skip.
+  background_genomes: ""
+
+# Optional folder of reference / isolate genomes (.fa/.fna/.fasta) used for
+# skani ANI against the MAGs and placed in the phylogenomic tree. "" to skip.
+reference_genomes: ""
+
+# ---------------------------------------------------------------------
+# Read profiling
+# ---------------------------------------------------------------------
+read_profiling:
+  bracken_read_len: 1000     # must match a kmer distribution built in your Bracken DB
+  bracken_level: G
+  kaiju_rank: genus
+
+# ---------------------------------------------------------------------
+# Gene panel (only if modules.gene_panel: true)
+#  proteins: FASTA of reference proteins INCLUDING sibling/decoy families
+#            so assignment is competitive (best hit wins)
+#  labels:   TSV  protein_id <tab> gene_label   (one row per protein)
+# ---------------------------------------------------------------------
+gene_panel:
+  proteins: ""
+  labels: ""
+  min_bitscore: 50
+
+# ---------------------------------------------------------------------
+# Databases (absolute paths). See workflow/scripts/download_databases.sh
+# ---------------------------------------------------------------------
+databases:
+  checkm2: "/path/to/databases/CheckM2_database/uniref100.KO.1.dmnd"
+  gunc: "/path/to/databases/gunc/gunc_db_progenomes2.1.dmnd"
+  gtdbtk: "/path/to/databases/gtdbtk/release232"
+  gtdbtk_mash_db: ""          # "" -> classify_wf --skip_ani_screen
+  kofam_profiles: "/path/to/databases/kofam/profiles"
+  kofam_ko_list: "/path/to/databases/kofam/ko_list"
+  dbcan: "/path/to/databases/dbcan"
+  genomad: "/path/to/databases/genomad_db"
+  singlem_metapackage: ""     # "" -> SingleM default (run `singlem data` once)
+  kraken2: ""                 # "" -> skip Kraken2/Bracken
+  kaiju_nodes: ""             # "" -> skip Kaiju
+  kaiju_names: ""
+  kaiju_fmi: ""
+  bakta: ""
+  antismash: ""               # "" -> antiSMASH default location
+
+# ---------------------------------------------------------------------
+# Compute
+# ---------------------------------------------------------------------
+threads:
+  small: 4
+  medium: 16
+  big: 32
+mem_mb:
+  assembly: 250000
+  gtdbtk: 120000
+  default: 16000
