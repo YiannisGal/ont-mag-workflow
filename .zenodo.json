@@ -1,0 +1,13 @@
+{
+  "title": "ont-mag-workflow: a Snakemake workflow for genome-resolved metagenomics from Oxford Nanopore long reads",
+  "upload_type": "software",
+  "description": "Snakemake workflow for genome-resolved metagenomics from Oxford Nanopore R10.4.1 long reads: read QC, assembly, polishing, binning, MAG quality control, taxonomy and functional annotation. Developed for the Etoliko Lagoon sediment metagenome study (NCBI BioProject PRJNA1552626).",
+  "creators": [
+    {"name": "Galiatsatos, Ioannis", "affiliation": "University of Patras, Greece"}
+  ],
+  "license": "MIT",
+  "keywords": ["metagenomics", "Oxford Nanopore", "long reads", "metagenome-assembled genomes", "Snakemake"],
+  "related_identifiers": [
+    {"identifier": "https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1552626", "relation": "isSupplementTo", "resource_type": "dataset"}
+  ]
+}
