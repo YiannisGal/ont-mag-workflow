@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this workflow, please cite it as below and cite the associated article."
+title: "ont-mag-workflow: a Snakemake workflow for genome-resolved metagenomics from Oxford Nanopore long reads"
+type: software
+authors:
+  - family-names: Galiatsatos
+    given-names: Ioannis
+    affiliation: "University of Patras, Greece"
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/YiannisGal/ont-mag-workflow"
+keywords:
+  - metagenomics
+  - Oxford Nanopore
+  - long reads
+  - metagenome-assembled genomes
+  - Snakemake
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Galiatsatos
+      given-names: Ioannis
+  title: "Long-Read Genome-Resolved Metagenomics of a Permanently Sulfidic Lagoon Sediment: Novel Anaerobic Lineages, Unbinned Sulfate Reducers and a Methylotrophic Route for Methanogenesis"
+  journal: "Microorganisms"
+  status: preprint
