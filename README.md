@@ -278,15 +278,15 @@ Installed automatically by Snakemake from bioconda/conda-forge.
 | [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk) | 2.7.2 | taxonomy (GTDB R232) | Chaumeil et al. 2022 |
 | [skani](https://github.com/bluenote-1577/skani) | — | ANI | Shaw & Yu 2023 |
 | [CoverM](https://github.com/wwood/CoverM) | 0.7.0 | coverage, breadth | Aroney et al. 2025 |
-| [IQ-TREE](https://github.com/iqtree/iqtree3) | 3.1.1 | phylogenomics | Minh et al. 2020 |
-| [SingleM](https://github.com/wwood/singlem) | — | read-based community profile | Woodcroft et al. 2025 |
+| [IQ-TREE](https://github.com/iqtree/iqtree3) | 3.1.1 | phylogenomics | Wong et al. 2026 |
+| [SingleM](https://github.com/wwood/singlem) | — | read-based community profile | Woodcroft et al. 2026 |
 | [Kraken2](https://github.com/DerrickWood/kraken2) / [Bracken](https://github.com/jenniferlu717/Bracken) | 2.1.3 / 3.0.1 | read taxonomy | Wood et al. 2019; Lu et al. 2017 |
 | [Kaiju](https://github.com/bioinformatics-centre/kaiju) | 1.10.1 | protein-level read taxonomy | Menzel et al. 2016 |
 | [Prodigal](https://github.com/hyattpd/Prodigal) | 2.6.3 | gene prediction | Hyatt et al. 2010 |
 | [KofamScan](https://github.com/takaram/kofam_scan) | 1.3.0 | KEGG orthologs | Aramaki et al. 2020 |
 | [dbCAN](https://github.com/bcb-unl/run_dbcan) | 4.1.4 (dbCAN3) | CAZymes | Zheng et al. 2023 |
 | [geNomad](https://github.com/apcamargo/genomad) | — | viruses, plasmids | Camargo et al. 2024 |
-| [antiSMASH](https://github.com/antismash/antismash) | 8.0.4 | biosynthetic gene clusters (optional) | Blin et al. 2023 |
+| [antiSMASH](https://github.com/antismash/antismash) | 8.0.4 | biosynthetic gene clusters (optional) | Blin et al. 2025 |
 | [Bakta](https://github.com/oschwengers/bakta) | 1.9.4 | full annotation (optional) | Schwengers et al. 2021 |
 | [gapseq](https://github.com/jotech/gapseq) / [SMETANA](https://github.com/cdanielmachado/smetana) | — | metabolic models (optional) | Zimmermann et al. 2021; Zelezniak et al. 2015 |
 | [DIAMOND](https://github.com/bbuchfink/diamond) | 2.1.9 | gene-panel read search (optional) | Buchfink et al. 2021 |
@@ -307,8 +307,9 @@ Lessons from the Etoliko analysis that apply to any long-read metagenome:
   R10.4.1 sup) and adjust `detection.*` if needed.
 - **PCR-amplified libraries distort abundance.** Use them for assembly and detection, not
   for quantitative claims.
-- **Use KofamScan's curated thresholds.** A flat E-value cut-off inflated hits ~5-fold
-  overall and ~29-fold for transporters.
+- **Use KofamScan's curated thresholds.** A flat E-value cut-off (E < 1e-10) would have
+  added 511 % more hits than the curated thresholds kept (1,666 extra on 326), and
+  2,895 % more for transporters (4,748 extra on 164).
 - **Competitive read searches need decoys.** In the gene panel, include all sibling families
   (e.g. MttB-superfamily methyltransferases next to *mtmB/mtbB/mttB/mtaB*); otherwise most
   hits are mis-assigned.
@@ -337,6 +338,8 @@ If you use this workflow, please cite:
 > Galiatsatos, I. *et al.* Long-Read Genome-Resolved Metagenomics of a Permanently Sulfidic
 > Lagoon Sediment: Novel Anaerobic Lineages, Unbinned Sulfate Reducers and a Methylotrophic
 > Route for Methanogenesis. *Microorganisms* (in preparation).
+>
+> Data: NCBI BioProject [PRJNA1552626](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1552626).
 
 and the tools listed under [Dependencies](#dependencies).
 
