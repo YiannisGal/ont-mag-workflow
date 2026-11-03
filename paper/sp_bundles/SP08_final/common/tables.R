@@ -1,0 +1,17 @@
+suppressMessages(library(data.table)); S <- Sys.getenv("S"); f <- function(x, d = 3) formatC(x, digits = d, format = "f"); fp <- function(p) ifelse(p < 0.001, formatC(p, format = "e", digits = 1), f(p, 4))
+c3 <- fread(file.path(S, "C3_unassigned_depth/C3_unassigned_vs_depth.tsv"))
+cat("## C3 unassigned vs depth\n| dataset | measure | min % (depth) | max % (depth) | Spearman rho | p | Mann–Kendall tau | p | p (BH) |\n|---|---|---|---|---|---|---|---|---|\n")
+cat(sprintf("| %s | %s | %s (%s) | %s (%s) | %s | %s | %s | %s | %s |\n", c3$dataset, c3$measure, f(c3$min_pct, 2), c3$min_depth, f(c3$max_pct, 2), c3$max_depth, f(c3$spearman_rho), fp(c3$p_perm9999), f(c3$MK_tau), fp(c3$MK_p), fp(c3$p_BH)), sep = "")
+c1 <- fread(file.path(S, "C1_ont14_links/C1_ont14_links.tsv"), colClasses = "character")
+cat("\n## C1 ONT links, 14 depths\n| genome | 16S copies | ONT14 cluster | identity | aln len | class | rank | peak depth (14-depth) | SP03 cluster | SP03 peak depth | changed? |\n|---|---|---|---|---|---|---|---|---|---|---|\n")
+L <- c1[class %in% c("exact","same_genus_level","related") | SP03_class %in% c("exact","same_genus_level","related")]
+cat(sprintf("| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n", L$genome, L$n_16S, L$ONT14_cluster, L$identity, L$aln_len, L$class, L$rank, L$peak_depth_14, L$SP03_cluster, L$SP03_peak_depth, L$changed), sep = "")
+N <- c1[!genome %in% L$genome]
+cat(sprintf("\n| genomes with no link | %s |\n|---|---|\n", nrow(N)))
+cat(sprintf("| %s | %s |\n", N$genome, ifelse(N$class == "no_link", sprintf("best hit %s at %s%% (below 94.5%%)", N$ONT14_cluster, N$identity), N$class)), sep = "")
+cat("\n| QC line |\n|---|\n"); cat(sprintf("| %s |\n", gsub("\\|", "/", readLines(file.path(S, "C1_ont14_links/QC.txt")))), sep = "")
+c2 <- fread(file.path(S, "C2_geochem_stats/C2_dbRDA_results.tsv")); vp <- fread(file.path(S, "C2_geochem_stats/C2_varpart.tsv"))
+cat("\n## C2 community ~ geochemistry\n| dataset | n | retained (VIF order) | selected (ordiR2step) | adj R² | F | p | p (BH) | Condition(depth) adj R² | p |\n|---|---|---|---|---|---|---|---|---|---|\n")
+cat(sprintf("| %s | %d | %s (dropped: %s) | %s | %s | %s | %s | %s | %s (terms: %s) | %s (BH %s) |\n", c2$dataset, c2$n, c2$retained_VIF, c2$dropped_VIF_order, c2$selected_ordiR2step, f(c2$full_adjR2), f(c2$full_F, 2), fp(c2$full_p), fp(c2$full_p_BH), f(c2$partial_adjR2), c2$partial_terms, fp(c2$partial_p), fp(c2$partial_p_BH)), sep = "")
+cat("\n| varpart (adj R²) | depth only | chemistry only | shared | residual |\n|---|---|---|---|---|\n")
+cat(sprintf("| %s (chem = %s) | %s | %s | %s | %s |\n", vp$dataset, vp$chemistry_set, f(vp$depth_only), f(vp$chemistry_only), f(vp$shared), f(vp$residual)), sep = "")

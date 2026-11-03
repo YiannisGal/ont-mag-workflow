@@ -1,0 +1,300 @@
+file	line	original	replacement
+scripts/01_setup_and_checks.sh	18	#   cd /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2	#   cd ${WS2}
+scripts/01_setup_and_checks.sh	112	ls -d /mnt/Ubuntu_HD2/Database/GTDB/release* 2>/dev/null | sed 's/^/        /'	ls -d ${SHARED_DB_DIR}/GTDB/release* 2>/dev/null | sed 's/^/        /'
+scripts/01_setup_and_checks.sh	119	for d in /mnt/Ubuntu_HD5/Users/yiannis/bakta_db \	for d in ${HOME_DIR}/bakta_db \
+scripts/01_setup_and_checks.sh	120	         /mnt/Ubuntu_HD5/Users/yiannis/databases/bakta_db \	         ${DB_DIR}/bakta_db \
+scripts/01_setup_and_checks.sh	121	         /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/databases/bakta_db; do	         ${DB_DIR}/bakta_db; do
+scripts/03_assemble.sh	34	#   cd /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2	#   cd ${WS2}
+scripts/03_assemble.sh	42	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"      # 33 chars, well under 108	export TMPDIR="${TMPDIR}"      # 33 chars, well under 108
+scripts/04_polish.sh	34	#   cd /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2	#   cd ${WS2}
+scripts/04_polish.sh	40	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"   # short path: AF_UNIX limit	export TMPDIR="${TMPDIR}"   # short path: AF_UNIX limit
+scripts/05_map.sh	28	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/06_bin.sh	37	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/06b_recollect_bins.sh	35	#   cd /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2	#   cd ${WS2}
+scripts/07_consensus.sh	41	#   cd /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2	#   cd ${WS2}
+scripts/07_consensus.sh	47	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/07b_score_sweep.sh	39	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/08_binqc.sh	48	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/08c_matched_comparison.sh	46	WS1="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace"	WS1="${WS1}"
+scripts/08d_finalize_magset.sh	40	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/09_taxonomy.sh	54	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/10_annotate.sh	40	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/12_derep_phylogeny.sh	45	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/12b_reference_trees.sh	42	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/13_readprofile.sh	63	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/13_readprofile.sh	95	  echo "       KRAKEN2_DB=/mnt/Ubuntu_HD5/Users/yiannis/databases/kraken2_standard16 \\"	  echo "       KRAKEN2_DB=${DB_DIR}/kraken2_standard16 \\"
+scripts/13b_silva_ssu.sh	45	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/13b_silva_ssu.sh	61	SILVA="${SILVA_SSU:-/mnt/Ubuntu_HD5/Users/yiannis/databases/silva/SILVA_SSURef_NR99.fasta}"	SILVA="${SILVA_SSU:-${DB_DIR}/silva/SILVA_SSURef_NR99.fasta}"
+scripts/13d_silva_verify.sh	63	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/13d_silva_verify.sh	67	SILVA="${SILVA_SSU:-/mnt/Ubuntu_HD5/Users/yiannis/databases/silva/SILVA_SSURef_NR99.fasta}"	SILVA="${SILVA_SSU:-${DB_DIR}/silva/SILVA_SSURef_NR99.fasta}"
+scripts/13e_erwinia_resolve.sh	66	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/13e_erwinia_resolve.sh	69	SILVA="${SILVA_SSU:-/mnt/Ubuntu_HD5/Users/yiannis/databases/silva/SILVA_SSURef_NR99.fasta}"	SILVA="${SILVA_SSU:-${DB_DIR}/silva/SILVA_SSURef_NR99.fasta}"
+scripts/13f_testrun_diagnose.sh	43	#   ws2 && RUNDIR=/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_total/fastqs \	#   ws2 && RUNDIR=${RAW_DATA_DIR}/fastqs \
+scripts/13f_testrun_diagnose.sh	50	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/14_comparative.sh	45	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/superseded/15_marker_trees.sh	49	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/15_marker_trees_curl.sh	49	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/16b_environment_genes.sh	102	  for root in ${CONDA_ROOTS:-/home/naima/miniconda3/envs /opt/conda/envs}; do	  for root in ${CONDA_ROOTS:-${CONDA_ENVS_SHARED} /opt/conda/envs}; do
+scripts/16b_environment_genes.sh	293	    for r in "$WS2" "${DBDIR:-/mnt/Ubuntu_HD5/Users/yiannis/databases}" "$HOME" /mnt/Ubuntu_HD5; do	    for r in "$WS2" "${DBDIR:-${DB_DIR}}" "$HOME" ${SCRATCH_ROOT}; do
+scripts/16b_environment_genes.sh	321	    echo "     /mnt/Ubuntu_HD5 for profiles.tar.gz (>100 MB)."	    echo "     ${SCRATCH_ROOT} for profiles.tar.gz (>100 MB)."
+scripts/17_comparative_genomics.sh	42	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/18_viruses_mges.sh	34	#   conda run -n genomad_env genomad download-database /mnt/Ubuntu_HD5/Users/yiannis/databases	#   conda run -n genomad_env genomad download-database ${DB_DIR}
+scripts/18_viruses_mges.sh	36	#   echo 'export GENOMAD_DB="/mnt/Ubuntu_HD5/Users/yiannis/databases/genomad_db"' >> 00_config.sh	#   echo 'export GENOMAD_DB="${DB_DIR}/genomad_db"' >> 00_config.sh
+scripts/18_viruses_mges.sh	48	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/18_viruses_mges.sh	61	  echo "     conda run -n genomad_env genomad download-database /mnt/Ubuntu_HD5/Users/yiannis/databases"	  echo "     conda run -n genomad_env genomad download-database ${DB_DIR}"
+scripts/18_viruses_mges.sh	64	  echo "     echo 'export GENOMAD_DB=\"/mnt/Ubuntu_HD5/Users/yiannis/databases/genomad_db\"' >> 00_config.sh"	  echo "     echo 'export GENOMAD_DB=\"${DB_DIR}/genomad_db\"' >> 00_config.sh"
+scripts/superseded/19_auxotrophy.sh	41	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/19b_auxotrophy_fixed.sh	62	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/20_substrates.sh	54	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/21_interaction_network.sh	65	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/22_singlem.sh	57	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/22_singlem.sh	67	# /mnt/Ubuntu_HD5 — never into a shared env, and never onto / (133 GB free).	# ${SCRATCH_ROOT} — never into a shared env, and never onto / (133 GB free).
+scripts/22_singlem.sh	68	SM_ENV="${SINGLEM_ENV:-/mnt/Ubuntu_HD5/Users/yiannis/envs/singlem_env}"	SM_ENV="${SINGLEM_ENV:-${ENVS_DIR}/singlem_env}"
+scripts/22_singlem.sh	117	  MPDIR="/mnt/Ubuntu_HD5/Users/yiannis/databases/singlem"	  MPDIR="${DB_DIR}/singlem"
+scripts/23_genome_extras.sh	53	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/23_genome_extras.sh	79	DS_ENV="${DEEPSIG_ENV:-/mnt/Ubuntu_HD5/Users/yiannis/envs/deepsig_env}"	DS_ENV="${DEEPSIG_ENV:-${ENVS_DIR}/deepsig_env}"
+scripts/23_genome_extras.sh	80	DS_ROOT="${DEEPSIG_ROOT:-/mnt/Ubuntu_HD5/Users/yiannis/envs/deepsig_src}"	DS_ROOT="${DEEPSIG_ROOT:-${ENVS_DIR}/deepsig_src}"
+scripts/24_deep_taxonomy.sh	52	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR}"; mkdir -p "$TMPDIR"
+scripts/26_crossmap.sh	58	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/28_crispr_mge_defence.sh	54	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/30_dbcan_cazymes.sh	61	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/30_dbcan_cazymes.sh	97	         "/mnt/Ubuntu_HD5/Users/yiannis/software/DRAM_DB/dbCAN-HMMdb-V11.txt" \	         "${SOFTWARE_DIR}/DRAM_DB/dbCAN-HMMdb-V11.txt" \
+scripts/30_dbcan_cazymes.sh	98	         "/mnt/Ubuntu_HD5/Users/yiannis/db/dbcan/dbCAN.hmm"; do	         "${HOME_DIR}/db/dbcan/dbCAN.hmm"; do
+scripts/30_dbcan_cazymes.sh	107	            /mnt/Ubuntu_HD5/Users/yiannis/software/DRAM_DB/dbCAN-HMMdb-*.h3m \	            ${SOFTWARE_DIR}/DRAM_DB/dbCAN-HMMdb-*.h3m \
+scripts/30_dbcan_cazymes.sh	108	            $(find /mnt/Ubuntu_HD5 "$WS2" -maxdepth 6 -name 'dbCAN*.h3m' 2>/dev/null); do	            $(find ${SCRATCH_ROOT} "$WS2" -maxdepth 6 -name 'dbCAN*.h3m' 2>/dev/null); do
+scripts/31_readlevel_methylotrophy.sh	58	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/32_strain_divergence.sh	51	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/32b_pileup_join.sh	54	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/33_antismash_bgc.sh	87	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/33_antismash_bgc.sh	242	      echo "     Move the image store to /mnt/Ubuntu_HD5 first — for docker,"	      echo "     Move the image store to ${SCRATCH_ROOT} first — for docker,"
+scripts/33_antismash_bgc.sh	243	      echo "     set  {\"data-root\": \"/mnt/Ubuntu_HD5/docker\"}  in"	      echo "     set  {\"data-root\": \"${SCRATCH_ROOT}/docker\"}  in"
+scripts/33_antismash_bgc.sh	349	# workspace is on /mnt/Ubuntu_HD5, which is outside anything snap grants by	# workspace is on ${SCRATCH_ROOT}, which is outside anything snap grants by
+scripts/33_antismash_bgc.sh	416	      echo "          docs.docker.com — set its data-root to /mnt/Ubuntu_HD5 so"	      echo "          docs.docker.com — set its data-root to ${SCRATCH_ROOT} so"
+scripts/33_antismash_bgc.sh	673	         /mnt/Ubuntu_HD5/Users/yiannis/databases/pfam/Pfam-A.hmm; do	         ${DB_DIR}/pfam/Pfam-A.hmm; do
+scripts/33_antismash_bgc.sh	678	            $(find "$BAKTA_DB" /mnt/Ubuntu_HD5 -maxdepth 5 \	            $(find "$BAKTA_DB" ${SCRATCH_ROOT} -maxdepth 5 \
+scripts/33_antismash_bgc.sh	699	  echo "          (~10 GB; put it on /mnt/Ubuntu_HD5, not /)"	  echo "          (~10 GB; put it on ${SCRATCH_ROOT}, not /)"
+scripts/34_unbinned_function.sh	66	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/34b_methylamine_arm.sh	95	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/35_kaiju_protein_taxonomy.sh	57	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/35_kaiju_protein_taxonomy.sh	60	DBDIR="${KAIJU_DBDIR:-/mnt/Ubuntu_HD5/Users/yiannis/databases/kaiju}"	DBDIR="${KAIJU_DBDIR:-${DB_DIR}/kaiju}"
+scripts/35_kaiju_protein_taxonomy.sh	106	    echo "       conda create -y -p /mnt/Ubuntu_HD5/Users/yiannis/.conda/envs/kaiju -c bioconda -c conda-forge kaiju"	    echo "       conda create -y -p ${CONDA_ENVS_USER}/kaiju -c bioconda -c conda-forge kaiju"
+scripts/35_kaiju_protein_taxonomy.sh	130	  DFP="$DBDIR"; [ -d "$DFP" ] || DFP=$(dirname "$DBDIR"); [ -d "$DFP" ] || DFP=/mnt/Ubuntu_HD5	  DFP="$DBDIR"; [ -d "$DFP" ] || DFP=$(dirname "$DBDIR"); [ -d "$DFP" ] || DFP=${SCRATCH_ROOT}
+scripts/35b_assignment_rank.sh	62	DBDIR="${KAIJU_DBDIR:-/mnt/Ubuntu_HD5/Users/yiannis/databases/kaiju}"	DBDIR="${KAIJU_DBDIR:-${DB_DIR}/kaiju}"
+scripts/36_hmm_gap_closure.sh	59	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/36_hmm_gap_closure.sh	385	  LIBS=$(ls -1 /mnt/Ubuntu_HD5/Users/yiannis/databases/*/*.{hmm,HMM} \	  LIBS=$(ls -1 ${DB_DIR}/*/*.{hmm,HMM} \
+scripts/36_hmm_gap_closure.sh	386	                /mnt/Ubuntu_HD5/Users/yiannis/databases/*/*/*.hmm 2>/dev/null | head -40)	                ${DB_DIR}/*/*/*.hmm 2>/dev/null | head -40)
+scripts/36d_cazyme_ctd_cross.sh	88	  for root in ${CONDA_ROOTS:-/home/naima/miniconda3/envs /opt/conda/envs}; do	  for root in ${CONDA_ROOTS:-${CONDA_ENVS_SHARED} /opt/conda/envs}; do
+scripts/36d_cazyme_ctd_cross.sh	125	  ROOTS="$WS2 ${DBDIR:-/mnt/Ubuntu_HD5/Users/yiannis/databases} $HOME /mnt/Ubuntu_HD5"	  ROOTS="$WS2 ${DBDIR:-${DB_DIR}} $HOME ${SCRATCH_ROOT}"
+scripts/38_preflight_gems.sh	32	#      machine where /home/naima/miniconda3/envs is not writable.	#      machine where ${CONDA_ENVS_SHARED} is not writable.
+scripts/38_preflight_gems.sh	59	: "${CONDA_ROOTS:=/home/naima/miniconda3/envs /opt/conda/envs $HOME/miniconda3/envs}"	: "${CONDA_ROOTS:=${CONDA_ENVS_SHARED} /opt/conda/envs $HOME/miniconda3/envs}"
+scripts/38_preflight_gems.sh	405	cand = [os.path.join(WS2, 'envs'), os.path.join(WS2, 'tmp'), '/mnt/Ubuntu_HD5']	cand = [os.path.join(WS2, 'envs'), os.path.join(WS2, 'tmp'), '${SCRATCH_ROOT}']
+scripts/41_env_and_checks.sh	12	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41_env_and_checks.sh	14	export TMPDIR="${TMPDIR41:-/mnt/Ubuntu_HD5/tmp41}"	export TMPDIR="${TMPDIR41:-${SCRATCH_ROOT}/tmp41}"
+scripts/41b_fixes.sh	14	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41b_fixes.sh	15	OUT="$WS2/41_env_checks"; export TMPDIR="${TMPDIR41:-/mnt/Ubuntu_HD5/tmp41}"	OUT="$WS2/41_env_checks"; export TMPDIR="${TMPDIR41:-${SCRATCH_ROOT}/tmp41}"
+scripts/41c_env_write.sh	11	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41d_write_env.sh	11	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41d_write_env.sh	137	for d in "$WS2"/*kofam* "$WS2"/*/*kofam* "$HOME"/kofam* /mnt/Ubuntu_HD5/*kofam*; do	for d in "$WS2"/*kofam* "$WS2"/*/*kofam* "$HOME"/kofam* ${SCRATCH_ROOT}/*kofam*; do
+scripts/41e_community_convention.sh	10	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41f_smoke_and_kofam.sh	10	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41g_smoke_real.sh	10	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41h_diagnose_na.sh	9	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41i_medium_both_formats.sh	14	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41j_medium_by_subtraction.sh	11	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41k_anoxic_assert.sh	17	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41l_fill_vs_analysis.sh	17	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/41m_confirm_ids.sh	12	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/42_build_gems.sh	14	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/42_build_gems.sh	18	export TMPDIR="${TMPDIR42:-/mnt/Ubuntu_HD5/tmp42}"	export TMPDIR="${TMPDIR42:-${SCRATCH_ROOT}/tmp42}"
+scripts/42b_fix_transport.sh	11	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/42b_fix_transport.sh	14	export TMPDIR="${TMPDIR42:-/mnt/Ubuntu_HD5/tmp42}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR42:-${SCRATCH_ROOT}/tmp42}"; mkdir -p "$TMPDIR"
+scripts/42c_diagnose_draft.sh	15	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/42d_biomass_fix.sh	9	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/42d_biomass_fix.sh	12	export TMPDIR="${TMPDIR42:-/mnt/Ubuntu_HD5/tmp42}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR42:-${SCRATCH_ROOT}/tmp42}"; mkdir -p "$TMPDIR"
+scripts/43_smetana_setup.sh	13	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43b_refill_analysis.sh	19	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43c_biomass_diagnosis.sh	30	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43d_merge_dissection.sh	30	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43e_use_smetana_properly.sh	28	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43f_control_then_run.sh	24	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43g_control_fixed.sh	26	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43h_refill_reversal.sh	31	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43i_methanogen_and_currencies.sh	36	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43j_which_archaeon.sh	39	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43k2_verify_and_repair.sh	31	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43k2_verify_and_repair.sh	33	export TMPDIR="/mnt/Ubuntu_HD5/tmp43k"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp43k"; mkdir -p "$TMPDIR"
+scripts/43k_archaea_rebuild.sh	34	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43k_archaea_rebuild.sh	36	export TMPDIR="/mnt/Ubuntu_HD5/tmp43k"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp43k"; mkdir -p "$TMPDIR"
+scripts/43l_community_eleven.sh	28	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43l_community_eleven.sh	30	export TMPDIR="/mnt/Ubuntu_HD5/tmp43l"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp43l"; mkdir -p "$TMPDIR"
+scripts/43m_mcr_audit_and_run.sh	36	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43m_mcr_audit_and_run.sh	38	export TMPDIR="/mnt/Ubuntu_HD5/tmp43m"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp43m"; mkdir -p "$TMPDIR"
+scripts/43n_fix_constraint_and_trace.sh	32	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43n_fix_constraint_and_trace.sh	34	export TMPDIR="/mnt/Ubuntu_HD5/tmp43n"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp43n"; mkdir -p "$TMPDIR"
+scripts/43o_solver_fix.sh	33	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43o_solver_fix.sh	35	export TMPDIR="/mnt/Ubuntu_HD5/tmp43o"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp43o"; mkdir -p "$TMPDIR"
+scripts/43p_pairwise.sh	25	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43p_pairwise.sh	27	export TMPDIR="/mnt/Ubuntu_HD5/tmp43p"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp43p"; mkdir -p "$TMPDIR"
+scripts/43q_real_test_5e99434.sh	35	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/43q_real_test_5e99434.sh	37	export TMPDIR="/mnt/Ubuntu_HD5/tmp43q"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp43q"; mkdir -p "$TMPDIR"
+scripts/44_loose_ends_9fa4fa3.sh	20	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/44b_finish_c55f369.sh	25	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/44c_b12_4ad3897.sh	33	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/45_kofam_cf52d21.sh	29	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/45_kofam_cf52d21.sh	31	export TMPDIR="/mnt/Ubuntu_HD5/tmp45"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp45"; mkdir -p "$TMPDIR"
+scripts/45b_profiles_f1b0801.sh	21	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/45b_profiles_f1b0801.sh	23	export TMPDIR="/mnt/Ubuntu_HD5/tmp45"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp45"; mkdir -p "$TMPDIR"
+scripts/45c_kofam_614ec04.sh	27	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/45c_kofam_614ec04.sh	29	export TMPDIR="/mnt/Ubuntu_HD5/tmp45"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp45"; mkdir -p "$TMPDIR"
+scripts/45c_kofam_614ec04.sh	45	df -h /mnt/Ubuntu_HD5 | sed 's/^/     /'	df -h ${SCRATCH_ROOT} | sed 's/^/     /'
+scripts/45c_kofam_614ec04.sh	46	AVAIL=$(df -Pk /mnt/Ubuntu_HD5 | awk 'NR==2{print $4}')	AVAIL=$(df -Pk ${SCRATCH_ROOT} | awk 'NR==2{print $4}')
+scripts/46_verify_6f89cb9.sh	22	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/47_master_2c00bba.sh	25	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/48_sulfur_8c346b0.sh	20	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/48_sulfur_8c346b0.sh	22	export TMPDIR="/mnt/Ubuntu_HD5/tmp48"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp48"; mkdir -p "$TMPDIR"
+scripts/48b_unbinned_d075632.sh	29	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/48b_unbinned_d075632.sh	31	export TMPDIR="/mnt/Ubuntu_HD5/tmp48"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp48"; mkdir -p "$TMPDIR"
+scripts/49_dsr_fa0a54d.sh	23	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/49_dsr_fa0a54d.sh	25	export TMPDIR="/mnt/Ubuntu_HD5/tmp49"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp49"; mkdir -p "$TMPDIR"
+scripts/49b_contigs_03458c9.sh	25	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+scripts/49b_contigs_03458c9.sh	27	export TMPDIR="/mnt/Ubuntu_HD5/tmp49"; mkdir -p "$TMPDIR"	export TMPDIR="${SCRATCH_ROOT}/tmp49"; mkdir -p "$TMPDIR"
+scripts/50b_harvest_265ffe3.sh	33	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/50b_harvest_265ffe3.sh	430	echo "(scp ... server:~/.../workspace_2/scripts43p... instead of .../scripts/43p...)."	echo "(scp ... server:${WS2}/scripts43p... instead of .../scripts/43p...)."
+scripts/51_gapfill_6d62f57.sh	32	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/52_mcra_recheck_03732e7.sh	27	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/53_mcra_nomination_a860e20.sh	33	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/54_mcr_fragmentation.sh	36	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/55_dsr_identity_182661e.sh	33	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/56_dsr_placement_573d9e6.sh	34	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/57_dsr_binning_test_5c84875.sh	36	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/58_dsr_finish_114e2a7.sh	38	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/59_dsr_close_e16c234.sh	50	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/59_dsr_close_e16c234.sh	92	  TAXF="$(find "$HOME" /mnt/Ubuntu_HD5 -maxdepth 6 -type f -name 'gtdb_taxonomy.tsv' 2>/dev/null | head -1)"	  TAXF="$(find "$HOME" ${SCRATCH_ROOT} -maxdepth 6 -type f -name 'gtdb_taxonomy.tsv' 2>/dev/null | head -1)"
+scripts/59_dsr_close_e16c234.sh	95	  TAXF="$(find "$HOME" /mnt/Ubuntu_HD5 -maxdepth 6 -type f -name 'bac120_taxonomy*.tsv' 2>/dev/null | head -1)"	  TAXF="$(find "$HOME" ${SCRATCH_ROOT} -maxdepth 6 -type f -name 'bac120_taxonomy*.tsv' 2>/dev/null | head -1)"
+scripts/60_readlevel_recon_c31d88d.sh	30	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/61_mtmB_resolve_457a72b.sh	52	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/61_mtmB_resolve_457a72b.sh	60	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/superseded/61_mtmB_resolve_6e79f0e.sh	52	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/superseded/61_mtmB_resolve_6e79f0e.sh	60	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/62_mtmB_flagged_d54cb71.sh	39	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/63_mtmB_relabel_5b954b8.sh	42	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/64_mtbB_mtaB_f115e09.sh	43	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/64_mtbB_mtaB_f115e09.sh	51	export TMPDIR="${TMPDIR:-/mnt/Ubuntu_HD5/Users/yiannis/tmp}"; mkdir -p "$TMPDIR"	export TMPDIR="${TMPDIR:-${TMPDIR}}"; mkdir -p "$TMPDIR"
+scripts/65_refset_rarefy.sh	44	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/66_network_recon_a883758.sh	45	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/67_network_compounds_8123eab.sh	49	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/68_network_control.sh	49	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/69_auxotrophy_pairing.sh	51	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/70_why_no_uptake.sh	54	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/71_archaeal_cysteine.sh	66	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/72_cys_recheck.sh	64	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/73_cys_fullset.sh	47	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/74_cys_control_panel.sh	50	  for c in /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2 \	  for c in ${WS2} \
+scripts/75_ani_locate.sh	10	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/76_ani_isolates.sh	23	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/77_housekeeping.sh	20	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/77_housekeeping.sh	208	df -h /mnt/Ubuntu_HD5 | sed 's/^/   /'	df -h ${SCRATCH_ROOT} | sed 's/^/   /'
+scripts/78_housekeeping_fix.sh	28	# AND THE PREMISE BEHIND ALL OF IT WAS WRONG. /mnt/Ubuntu_HD5 has 1.8 TB free.	# AND THE PREMISE BEHIND ALL OF IT WAS WRONG. ${SCRATCH_ROOT} has 1.8 TB free.
+scripts/78_housekeeping_fix.sh	33	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/78_housekeeping_fix.sh	171	df -h /mnt/Ubuntu_HD5 | sed 's/^/   /'	df -h ${SCRATCH_ROOT} | sed 's/^/   /'
+scripts/79_mtbB_mtaB.sh	26	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/80_mtbB_mtaB_finish.sh	35	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/81_mtbB_why.sh	34	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/82_mtbB_who.sh	39	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/83_who_really.sh	36	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/84_open_denominator.sh	38	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/superseded/85_tree_inventory.sh	16	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/86_tree_inventory_fix.sh	27	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/87_dsr_context.sh	25	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/88_reconcile.sh	30	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/89_fig_inputs.sh	34	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/90_mag_bin_mapping.sh	47	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/91_mcr_refset_audit.sh	42	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/92_mcra_panel_composition.sh	54	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/93_mttb_refset_and_alignment.sh	41	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/94_mldist_reader_fix.sh	37	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/95_mttb_overlap.sh	45	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/96_mttb_salvage.sh	46	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/97_mttb_domain_fix.sh	46	WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2="${WS2}"
+scripts/make_figures.sh	22	WS2="${WS2:-/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2}"	WS2="${WS2:-${WS2}}"
+config/00_config_patch.sh	7	#   A failed `conda install` into /home/naima/miniconda3/envs/NB_Genome rolled	#   A failed `conda install` into ${CONDA_ENVS_SHARED}/NB_Genome rolled
+config/00_config_patch.sh	16	#   Flye (see flye.log: Cmd: /home/naima/miniconda3/envs/NB_Genome/bin/flye).	#   Flye (see flye.log: Cmd: ${CONDA_ENVS_SHARED}/NB_Genome/bin/flye).
+config/00_config_patch.sh	26	export CONDA_ROOTS="/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs /home/naima/miniconda3/envs"	export CONDA_ROOTS="${CONDA_ENVS_USER} ${CONDA_ENVS_SHARED}"
+versions.tsv	13	bakta\t/home/naima/miniconda3/envs/NB_Genome/lib/python3.10/site-packages/requests/__init__.py:92: RequestsDependencyWarning: Unable to find acceptable character detec\tNB_Genome	bakta\t${CONDA_ENVS_SHARED}/NB_Genome/lib/python3.10/site-packages/requests/__init__.py:92: RequestsDependencyWarning: Unable to find acceptable character detec\tNB_Genome
+versions.tsv	34	bracken\t/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs/tax_profile/bin/bracken: illegal option -- - Usage: bracken -v -d MY_DB -i INPUT -o OUTPUT -w OUTREPORT -r READ_LEN -l\ttax_profile	bracken\t${CONDA_ENVS_USER}/tax_profile/bin/bracken: illegal option -- - Usage: bracken -v -d MY_DB -i INPUT -o OUTPUT -w OUTREPORT -r READ_LEN -l\ttax_profile
+versions.tsv	125	22_singlem\tsinglem\tNOT FOUND in env '/mnt/Ubuntu_HD5/Users/yiannis/envs/singlem_env'\t/mnt/Ubuntu_HD5/Users/yiannis/envs/singlem_env\t2026-08-23T15:22:43+03:00	22_singlem\tsinglem\tNOT FOUND in env '${ENVS_DIR}/singlem_env'\t${ENVS_DIR}/singlem_env\t2026-08-23T15:22:43+03:00
+versions.tsv	126	22_singlem\tsinglem\tNOT FOUND in env '/mnt/Ubuntu_HD5/Users/yiannis/envs/singlem_env'\t/mnt/Ubuntu_HD5/Users/yiannis/envs/singlem_env\t2026-08-23T23:56:50+03:00	22_singlem\tsinglem\tNOT FOUND in env '${ENVS_DIR}/singlem_env'\t${ENVS_DIR}/singlem_env\t2026-08-23T23:56:50+03:00
+versions.tsv	141	35_kaiju\tkaiju_db\tkaiju_db_progenomes\t/mnt/Ubuntu_HD5/Users/yiannis/databases/kaiju/kaiju_db_progenomes.fmi\t2026-09-04T12:24:02+03:00	35_kaiju\tkaiju_db\tkaiju_db_progenomes\t${DB_DIR}/kaiju/kaiju_db_progenomes.fmi\t2026-09-04T12:24:02+03:00
+versions.tsv	145	35_kaiju\tkaiju_db\tkaiju_db_progenomes\t/mnt/Ubuntu_HD5/Users/yiannis/databases/kaiju/kaiju_db_progenomes.fmi\t2026-09-04T12:58:26+03:00	35_kaiju\tkaiju_db\tkaiju_db_progenomes\t${DB_DIR}/kaiju/kaiju_db_progenomes.fmi\t2026-09-04T12:58:26+03:00
+sp_bundles/SP01_markers/combined_analysis_marker_method.md	3	Source tree (read-only): `/mnt/Ubuntu_HD5/Users/yiannis/Documents/Combined_analysis/workspace`	Source tree (read-only): `${COMBINED_WS}`
+sp_bundles/SP01_markers/run_SP01.sh	13	WS2=/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2	WS2=${WS2}
+sp_bundles/SP01_markers/run_SP01.sh	14	B=/mnt/Ubuntu_HD5/Users/yiannis/Documents	B=${DOCS_DIR}
+sp_bundles/SP02_recruitment/bg_extended/run_SP02.sh	9	B=/mnt/Ubuntu_HD5/Users/yiannis/Documents	B=${DOCS_DIR}
+sp_bundles/SP02_recruitment/bg_extended/scripts/s0_bg.sh	3	# (taxonomy: /mnt/Ubuntu_HD2/Database/GTDB/release232/taxonomy/gtdb_taxonomy.tsv), downloaded from NCBI with `datasets`.	# (taxonomy: ${SHARED_DB_DIR}/GTDB/release232/taxonomy/gtdb_taxonomy.tsv), downloaded from NCBI with `datasets`.
+sp_bundles/SP02_recruitment/bg_extended/scripts/s0_bg.sh	8	TAX=/mnt/Ubuntu_HD2/Database/GTDB/release232/taxonomy/gtdb_taxonomy.tsv	TAX=${SHARED_DB_DIR}/GTDB/release232/taxonomy/gtdb_taxonomy.tsv
+sp_bundles/SP02_recruitment/run_SP02.sh	9	B=/mnt/Ubuntu_HD5/Users/yiannis/Documents	B=${DOCS_DIR}
+sp_bundles/SP03_16S_links/run_SP03.sh	10	B=/mnt/Ubuntu_HD5/Users/yiannis/Documents	B=${DOCS_DIR}
+sp_bundles/SP04_archaeal_orders/run_SP04.sh	9	B=/mnt/Ubuntu_HD5/Users/yiannis/Documents	B=${DOCS_DIR}
+sp_bundles/SP05_dsr_mcr/run_SP05.sh	10	B=/mnt/Ubuntu_HD5/Users/yiannis/Documents	B=${DOCS_DIR}
+sp_bundles/SP05_dsr_mcr/run_SP05.sh	21	UP=/mnt/Ubuntu_HD2/Database/MicrobeAnnotator_DB/protein_db	UP=${SHARED_DB_DIR}/MicrobeAnnotator_DB/protein_db
+sp_bundles/SP07_final/B3_geochem_stats/scripts/b3.R	4	B <- "/mnt/Ubuntu_HD5/Users/yiannis/Documents"; E <- file.path(B, "Etoliko_138_2")	B <- "${DOCS_DIR}"; E <- file.path(B, "Etoliko_138_2")
+sp_bundles/SP07_final/B4_unbinned_phyla/scripts/b4.sh	9	export GTDBTK_DATA_PATH=/mnt/Ubuntu_HD2/Database/GTDB/release232/	export GTDBTK_DATA_PATH=${SHARED_DB_DIR}/GTDB/release232/
+sp_bundles/SP07_final/B4_unbinned_phyla/scripts/b4.sh	10	CM2DB=/mnt/Ubuntu_HD5/Users/yiannis/databases/CheckM2_database/uniref100.KO.1.dmnd; GUNCDB=/mnt/Ubuntu_HD5/Users/yiannis/databases/gunc_db/gunc_db_progenomes2.1.dmnd	CM2DB=${DB_DIR}/CheckM2_database/uniref100.KO.1.dmnd; GUNCDB=${DB_DIR}/gunc_db/gunc_db_progenomes2.1.dmnd
+sp_bundles/SP07_final/B4_unbinned_phyla/scripts/b4b.sh	9	T=24; export GTDBTK_DATA_PATH=/mnt/Ubuntu_HD2/Database/GTDB/release232/	T=24; export GTDBTK_DATA_PATH=${SHARED_DB_DIR}/GTDB/release232/
+sp_bundles/SP07_final/B4_unbinned_phyla/scripts/b4b.sh	10	CM2DB=/mnt/Ubuntu_HD5/Users/yiannis/databases/CheckM2_database/uniref100.KO.1.dmnd; GUNCDB=/mnt/Ubuntu_HD5/Users/yiannis/databases/gunc_db/gunc_db_progenomes2.1.dmnd	CM2DB=${DB_DIR}/CheckM2_database/uniref100.KO.1.dmnd; GUNCDB=${DB_DIR}/gunc_db/gunc_db_progenomes2.1.dmnd
+sp_bundles/SP07_final/B4_unbinned_phyla/scripts/b4b.sh	11	FLYE=/home/naima/miniconda3/envs/NB_Genome/bin/flye   # /usr/local/bin/flye 2.9.4 is broken (import error); used read-only	FLYE=${CONDA_ENVS_SHARED}/NB_Genome/bin/flye   # /usr/local/bin/flye 2.9.4 is broken (import error); used read-only
+sp_bundles/SP07_final/B5_mag022_dsr/scripts/b5.sh	8	ver checkm2 "$($CE/checkm2/bin/checkm2 --version 2>&1 | tail -1)" "DB /mnt/Ubuntu_HD5/Users/yiannis/databases/CheckM2_database/uniref100.KO.1.dmnd"	ver checkm2 "$($CE/checkm2/bin/checkm2 --version 2>&1 | tail -1)" "DB ${DB_DIR}/CheckM2_database/uniref100.KO.1.dmnd"
+sp_bundles/SP07_final/B5_mag022_dsr/scripts/b5.sh	19	inenv checkm2 checkm2 predict --threads 16 --input work/genomes -x fa --output-directory work/checkm2 --database_path /mnt/Ubuntu_HD5/Users/yiannis/databases/CheckM2_database/uniref100.KO.1.dmnd --force	inenv checkm2 checkm2 predict --threads 16 --input work/genomes -x fa --output-directory work/checkm2 --database_path ${DB_DIR}/CheckM2_database/uniref100.KO.1.dmnd --force
+sp_bundles/SP07_final/B5_mag022_dsr/scripts/b5.sh	20	mkdir -p work/gunc; inenv gunc_env gunc run --input_dir work/genomes --file_suffix .fa --db_file /mnt/Ubuntu_HD5/Users/yiannis/databases/gunc_db/gunc_db_progenomes2.1.dmnd --out_dir work/gunc --threads 16 --temp_dir $TMPDIR	mkdir -p work/gunc; inenv gunc_env gunc run --input_dir work/genomes --file_suffix .fa --db_file ${DB_DIR}/gunc_db/gunc_db_progenomes2.1.dmnd --out_dir work/gunc --threads 16 --temp_dir $TMPDIR
+sp_bundles/SP07_final/B5_mag022_dsr/scripts/b5.sh	21	GTDBTK_DATA_PATH=/mnt/Ubuntu_HD2/Database/GTDB/release232/ inenv gtdbtk_env gtdbtk identify --genome_dir work/genomes -x fa --out_dir work/gtdbtk --cpus 16	GTDBTK_DATA_PATH=${SHARED_DB_DIR}/GTDB/release232/ inenv gtdbtk_env gtdbtk identify --genome_dir work/genomes -x fa --out_dir work/gtdbtk --cpus 16
+sp_bundles/SP07_final/common/dsrab_silva/build_silva.py	11	CE = '/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs'	CE = '${CONDA_ENVS_USER}'
+sp_bundles/SP07_final/common/dsrab_silva/run_v3.sh	3	set -uo pipefail; H=$(cd $(dirname $0); pwd); S=$(dirname $(dirname $H)); EB=$S/env/.pixi/envs/default/bin; CE=/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs	set -uo pipefail; H=$(cd $(dirname $0); pwd); S=$(dirname $(dirname $H)); EB=$S/env/.pixi/envs/default/bin; CE=${CONDA_ENVS_USER}
+sp_bundles/SP07_final/common/lib.sh	2	export B=/mnt/Ubuntu_HD5/Users/yiannis/Documents	export B=${DOCS_DIR}
+sp_bundles/SP07_final/common/lib.sh	7	export CE=/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs	export CE=${CONDA_ENVS_USER}
+sp_bundles/SP07_final/common/reads/extract.sh	2	echo "CMD [$(date -Is)] seqkit grep -f ids.txt /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2/00_input/sediment_reads_clean.fastq.gz" >> ../COMMANDS.log	echo "CMD [$(date -Is)] seqkit grep -f ids.txt ${WS2}/00_input/sediment_reads_clean.fastq.gz" >> ../COMMANDS.log
+sp_bundles/SP07_final/common/reads/extract.sh	3	../../env/.pixi/envs/default/bin/seqkit grep -j 8 -f ids.txt /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2/00_input/sediment_reads_clean.fastq.gz -o reads.fastq && ../../env/.pixi/envs/default/bin/seqkit fq2fa reads.fastq -o reads.fa	../../env/.pixi/envs/default/bin/seqkit grep -j 8 -f ids.txt ${WS2}/00_input/sediment_reads_clean.fastq.gz -o reads.fastq && ../../env/.pixi/envs/default/bin/seqkit fq2fa reads.fastq -o reads.fa
+sp_bundles/SP07_final/common/reads/extract.sh	5	printf '%s\t%s\n' "$(md5sum < /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2/00_input/sediment_reads_clean.fastq.gz | cut -c1-32)" /mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2/00_input/sediment_reads_clean.fastq.gz > reads_md5.tsv	printf '%s\t%s\n' "$(md5sum < ${WS2}/00_input/sediment_reads_clean.fastq.gz | cut -c1-32)" ${WS2}/00_input/sediment_reads_clean.fastq.gz > reads_md5.tsv
+sp_bundles/SP07_final/common/reftrees/build_refs.py	14	SP05 = f'{WS2}/99_thesis_audit/SP05_dsr_mcr'; EB = f'{S}/env/.pixi/envs/default/bin'; CE = '/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs'	SP05 = f'{WS2}/99_thesis_audit/SP05_dsr_mcr'; EB = f'{S}/env/.pixi/envs/default/bin'; CE = '${CONDA_ENVS_USER}'
+sp_bundles/SP07_final/common/reftrees/extract.sh	1	set -uo pipefail; cd $(dirname $0); EB=../../env/.pixi/envs/default/bin; D=/mnt/Ubuntu_HD2/Database/MicrobeAnnotator_DB/protein_db	set -uo pipefail; cd $(dirname $0); EB=../../env/.pixi/envs/default/bin; D=${SHARED_DB_DIR}/MicrobeAnnotator_DB/protein_db
+sp_bundles/SP07_final/common/reftrees/mcrA_only.sh	1	set -uo pipefail; R=$(cd $(dirname $0); pwd); S=$(dirname $(dirname $R)); EB=$S/env/.pixi/envs/default/bin; CE=/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs	set -uo pipefail; R=$(cd $(dirname $0); pwd); S=$(dirname $(dirname $R)); EB=$S/env/.pixi/envs/default/bin; CE=${CONDA_ENVS_USER}
+sp_bundles/SP07_final/common/reftrees/run_v2.sh	3	set -uo pipefail; R=$(cd $(dirname $0); pwd); S=$(dirname $(dirname $R)); EB=$S/env/.pixi/envs/default/bin; CE=/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs	set -uo pipefail; R=$(cd $(dirname $0); pwd); S=$(dirname $(dirname $R)); EB=$S/env/.pixi/envs/default/bin; CE=${CONDA_ENVS_USER}
+sp_bundles/SP08_final/C1_ont14_links/scripts/load.R	3	B  <- "/mnt/Ubuntu_HD5/Users/yiannis/Documents"; E <- file.path(B, "Etoliko_138_2"); O <- file.path(B, "Etoliko_new")	B  <- "${DOCS_DIR}"; E <- file.path(B, "Etoliko_138_2"); O <- file.path(B, "Etoliko_new")
+sp_bundles/SP08_final/C2_geochem_stats/scripts/load.R	3	B  <- "/mnt/Ubuntu_HD5/Users/yiannis/Documents"; E <- file.path(B, "Etoliko_138_2"); O <- file.path(B, "Etoliko_new")	B  <- "${DOCS_DIR}"; E <- file.path(B, "Etoliko_138_2"); O <- file.path(B, "Etoliko_new")
+sp_bundles/SP08_final/C3_unassigned_depth/scripts/load.R	3	B  <- "/mnt/Ubuntu_HD5/Users/yiannis/Documents"; E <- file.path(B, "Etoliko_138_2"); O <- file.path(B, "Etoliko_new")	B  <- "${DOCS_DIR}"; E <- file.path(B, "Etoliko_138_2"); O <- file.path(B, "Etoliko_new")
+sp_bundles/SP08_final/common/load.R	3	B  <- "/mnt/Ubuntu_HD5/Users/yiannis/Documents"; E <- file.path(B, "Etoliko_138_2"); O <- file.path(B, "Etoliko_new")	B  <- "${DOCS_DIR}"; E <- file.path(B, "Etoliko_138_2"); O <- file.path(B, "Etoliko_new")
+sp_bundles/SP09_final/A10_combined_tree/run_a10.sh	1	export GTDBTK_DATA_PATH=/mnt/Ubuntu_HD2/Database/GTDB/release232/	export GTDBTK_DATA_PATH=${SHARED_DB_DIR}/GTDB/release232/
+sp_bundles/SP09_final/A10_combined_tree/select_refs.py	4	W="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"; S=W+"/99_thesis_audit/SP09_final"	W="${WS2}"; S=W+"/99_thesis_audit/SP09_final"
+sp_bundles/SP09_final/A11_species_panels/prep_panels.py	4	S="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2/99_thesis_audit/SP09_final"; P=S+"/A11_species_panels"	S="${WS2}/99_thesis_audit/SP09_final"; P=S+"/A11_species_panels"
+sp_bundles/SP09_final/A12_MQ_ani_screen/run_a12.sh	2	skani search -d /mnt/Ubuntu_HD2/Database/GTDB/release232/skani/database genomes/*.fa -t 8 -n 5 -o vs_gtdb_r232.tsv > search.log 2>&1 && echo "A12DONE gtdb" || echo "A12FAIL gtdb"	skani search -d ${SHARED_DB_DIR}/GTDB/release232/skani/database genomes/*.fa -t 8 -n 5 -o vs_gtdb_r232.tsv > search.log 2>&1 && echo "A12DONE gtdb" || echo "A12FAIL gtdb"
+sp_bundles/SP09_final/A13_extra_candidates/run_a13.sh	1	S=/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2/99_thesis_audit/SP09_final; X=$S/A13_extra_candidates; cd $X	S=${WS2}/99_thesis_audit/SP09_final; X=$S/A13_extra_candidates; cd $X
+sp_bundles/SP09_final/A13_extra_candidates/run_a13.sh	2	EZ=/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs/sp09_aai/bin; export PATH=$EZ:$PATH	EZ=${CONDA_ENVS_USER}/sp09_aai/bin; export PATH=$EZ:$PATH
+sp_bundles/SP09_final/A13_extra_candidates/run_a13.sh	28	export GTDBTK_DATA_PATH=/mnt/Ubuntu_HD2/Database/GTDB/release232/	export GTDBTK_DATA_PATH=${SHARED_DB_DIR}/GTDB/release232/
+sp_bundles/SP09_final/A4_aai/aai_guard.sh	2	export PATH=/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs/sp09_aai/bin:$PATH	export PATH=${CONDA_ENVS_USER}/sp09_aai/bin:$PATH
+sp_bundles/SP09_final/A6_trees/run_a6.sh	1	export GTDBTK_DATA_PATH=/mnt/Ubuntu_HD2/Database/GTDB/release232/	export GTDBTK_DATA_PATH=${SHARED_DB_DIR}/GTDB/release232/
+sp_bundles/SP09_final/A6_trees/v2/run_a6.sh	1	export GTDBTK_DATA_PATH=/mnt/Ubuntu_HD2/Database/GTDB/release232/	export GTDBTK_DATA_PATH=${SHARED_DB_DIR}/GTDB/release232/
+sp_bundles/SP09_final/A7_maps/run_cgview.sh	4	B=/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs/sp09_cgview/bin	B=${CONDA_ENVS_USER}/sp09_cgview/bin
+sp_bundles/SP09_final/A7_maps/run_cog_maps.sh	2	B=/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs/sp09_cgview/bin	B=${CONDA_ENVS_USER}/sp09_cgview/bin
+sp_bundles/SP09_final/A7_maps/run_maps.sh	7	  [ -s eggnog/$m.emapper.annotations ] || conda run -n sp09_emapper emapper.py -i bakta/$m/$m.faa --itype proteins -m diamond --data_dir /mnt/Ubuntu_HD2/Database/eggNOG --output $m --output_dir eggnog --cpu 8 --override > eggnog/$m.log 2>&1 || echo "EGGFAIL $m"	  [ -s eggnog/$m.emapper.annotations ] || conda run -n sp09_emapper emapper.py -i bakta/$m/$m.faa --itype proteins -m diamond --data_dir ${SHARED_DB_DIR}/eggNOG --output $m --output_dir eggnog --cpu 8 --override > eggnog/$m.log 2>&1 || echo "EGGFAIL $m"
+sp_bundles/SP09_final/A7_maps/run_maps2.sh	2	[ -s eggnog/all6.emapper.annotations ] || conda run -n sp09_emapper emapper.py -i eggnog/all6.faa --itype proteins -m diamond --data_dir /mnt/Ubuntu_HD2/Database/eggNOG --output all6 --output_dir eggnog --cpu 12 --override > eggnog/all6.log 2>&1 || echo "EGGFAIL all6"	[ -s eggnog/all6.emapper.annotations ] || conda run -n sp09_emapper emapper.py -i eggnog/all6.faa --itype proteins -m diamond --data_dir ${SHARED_DB_DIR}/eggNOG --output all6 --output_dir eggnog --cpu 12 --override > eggnog/all6.log 2>&1 || echo "EGGFAIL all6"
+sp_bundles/SP09_final/A7_maps/run_maps_extra.sh	2	S=/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2/99_thesis_audit/SP09_final; X=$S/A13_extra_candidates	S=${WS2}/99_thesis_audit/SP09_final; X=$S/A13_extra_candidates
+sp_bundles/SP09_final/A7_maps/run_maps_extra.sh	8	[ -s eggnog/extra3.emapper.annotations ] || conda run -n sp09_emapper emapper.py -i eggnog/extra3.faa --itype proteins -m diamond --data_dir /mnt/Ubuntu_HD2/Database/eggNOG --output extra3 --output_dir eggnog --cpu 12 --override > eggnog/extra3.log 2>&1 || { echo "EGGFAIL extra3"; exit 1; }	[ -s eggnog/extra3.emapper.annotations ] || conda run -n sp09_emapper emapper.py -i eggnog/extra3.faa --itype proteins -m diamond --data_dir ${SHARED_DB_DIR}/eggNOG --output extra3 --output_dir eggnog --cpu 12 --override > eggnog/extra3.log 2>&1 || { echo "EGGFAIL extra3"; exit 1; }
+sp_bundles/SP09_final/A7_maps/run_maps_extra.sh	9	B=/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs/sp09_cgview/bin	B=${CONDA_ENVS_USER}/sp09_cgview/bin
+sp_bundles/SP09_final/A8_table/build_a8.py	3	W="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"; S=W+"/99_thesis_audit/SP09_final"	W="${WS2}"; S=W+"/99_thesis_audit/SP09_final"
+sp_bundles/SP10_manuscript/E1_figures/scripts/sp05_tree_labels.py	9	WS2 = "/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2 = "${WS2}"
+sp_bundles/SP10_manuscript/E2_tables/scripts/build_e2.py	10	WS2 = "/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	WS2 = "${WS2}"
+sp_bundles/SP10_manuscript/E2_tables/scripts/build_e2.py	11	WS1 = "/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace"	WS1 = "${WS1}"
+config/00_config.template.sh	20	export WS1="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace"	export WS1="<WS1>"   # path to workspace 1 (first-pass assemblies and liquid-culture reads)
+config/00_config.template.sh	21	export WS2="/mnt/Ubuntu_HD5/Users/yiannis/Documents/Metagenome_analysis_PhD/workspace_2"	export WS2="<WS2>"   # path to workspace 2 (this analysis; step folders 01_qc ... 97_*)
+config/00_config.template.sh	32	export TMPDIR="/mnt/Ubuntu_HD5/Users/yiannis/tmp"	export TMPDIR="<TMPDIR>"   # a scratch directory with >100 GB free
+config/00_config.template.sh	69	export GTDBTK_DATA_PATH="/mnt/Ubuntu_HD2/Database/GTDB/release232/"	export GTDBTK_DATA_PATH="<GTDBTK_DATA_PATH>"   # GTDB-Tk reference data, release 232
+config/00_config.template.sh	71	export GTDB_FALLBACK="/mnt/Ubuntu_HD2/Database/GTDB/release226/"	export GTDB_FALLBACK="<GTDB_FALLBACK>"   # GTDB-Tk reference data, release 226
+config/00_config.template.sh	73	export CHECKM2DB="/mnt/Ubuntu_HD5/Users/yiannis/databases/CheckM2_database/uniref100.KO.1.dmnd"	export CHECKM2DB="<CHECKM2DB>"   # CheckM2 DIAMOND database (uniref100.KO.1.dmnd)
+config/00_config.template.sh	74	export BAKTA_DB="/mnt/Ubuntu_HD5/Users/yiannis/databases/bakta_full/db"	export BAKTA_DB="<BAKTA_DB>"   # Bakta full database directory
+config/00_config.template.sh	75	export GUNC_DB="/mnt/Ubuntu_HD5/Users/yiannis/databases/gunc_db/gunc_db_progenomes2.1.dmnd"	export GUNC_DB="<GUNC_DB>"   # GUNC progenomes 2.1 DIAMOND database
+config/00_config.template.sh	76	export KRAKEN2_DB="${KRAKEN2_DB:-/mnt/Ubuntu_HD5/Users/yiannis/databases/kraken2_std16}"   # k2_standard_16GB 2026-06-26; maxikraken2_1903 140GB exceeds 125GB RAM	export KRAKEN2_DB="<KRAKEN2_DB>"   # Kraken2 standard 16 GB database
+config/00_config.template.sh	77	export DRAM_DB="/mnt/Ubuntu_HD5/Users/yiannis/software/DRAM_DB"	export DRAM_DB="<DRAM_DB>"   # DRAM database directory
+config/00_config.template.sh	163	#   A failed `conda install` into /home/naima/miniconda3/envs/NB_Genome rolled	#   A failed `conda install` into ${CONDA_ENVS_SHARED}/NB_Genome rolled
+config/00_config.template.sh	172	#   Flye (see flye.log: Cmd: /home/naima/miniconda3/envs/NB_Genome/bin/flye).	#   Flye (see flye.log: Cmd: ${CONDA_ENVS_SHARED}/NB_Genome/bin/flye).
+config/00_config.template.sh	182	export CONDA_ROOTS="/mnt/Ubuntu_HD5/Users/yiannis/.conda/envs /home/naima/miniconda3/envs"	export CONDA_ROOTS="<CONDA_ROOTS>"   # space-separated list of conda envs directories to search
+config/00_config.template.sh	249	export GENOMAD_DB="/mnt/Ubuntu_HD5/Users/yiannis/databases/genomad_db"	export GENOMAD_DB="<GENOMAD_DB>"   # geNomad database directory
+config/00_config.template.sh	250	export GENOMAD_DB="/mnt/Ubuntu_HD5/Users/yiannis/databases/genomad_db"	export GENOMAD_DB="<GENOMAD_DB>"   # geNomad database directory

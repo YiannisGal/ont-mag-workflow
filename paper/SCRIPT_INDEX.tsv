@@ -1,0 +1,317 @@
+step	script	status	what_it_does	main_inputs	main_outputs	lab_notebook_volume	manuscript_table_figure
+01	01_setup_and_checks.sh	final	Setup, input copy, pre-flight checks	00_input, 03_binning, 05_binqc, 06_taxonomy	unknown	I	unknown
+02	02_env_smoketest.sh	final	02_env_smoketest.sh	00_smoketest	unknown	I	unknown
+03	03_assemble.sh	final	03_assemble.sh  (v2)  --  read length filtering + re-assembly with --nano-hq	—	01_qc, 03_assembly	I	—
+04	04_polish.sh	final	Medaka consensus polishing + contig renaming	—	04_polish	I, III, IV, V	—
+05	05_map.sh	final	read mapping (self + cross) and multi-sample contig depth	00_input, 04_polish	02_mapping	I	T_unbinned_fraction, T_unbinned_marker_levels
+06	06_bin.sh	final	three independent binners, named per NAMING_CONVENTION.md	02_mapping, 04_polish	03_binning	I, V	T_binning
+06b	06b_recollect_bins.sh	final	repair the bin collection from 06_bin.sh	03_binning	unknown	I	unknown
+07	07_consensus.sh	final	DAS_Tool consensus binning	03_binning, 04_polish	05_consensus	I	T_binning
+07b	07b_score_sweep.sh	final	DAS_Tool score_threshold sensitivity analysis	—	05_consensus	I	—
+08	08_binqc.sh	final	CheckM2 + GUNC + MIMAG completeness, on the union bin set	05_consensus	06_binqc	I, II, III	—
+08b	08b_inspect.sh	final	read MAG_QC.tsv properly before making two decisions	—	unknown	I	unknown
+08c	08c_matched_comparison.sh	final	did polishing actually change anything?	—	unknown	I	unknown
+08d	08d_finalize_magset.sh	final	freeze the MAG set, fix naming, measure coverage	—	07_mags	I	T_binning, T_mag_catalogue_full
+09	09_taxonomy.sh	final	GTDB-Tk R232 classification of the frozen MAG set	06_binqc, 07_mags	08_taxonomy	I, III, IV, V	T_mag_catalogue_full
+10	10_annotate.sh	final	Bakta annotation of all 29 MAGs (bacteria AND archaea)	07_mags	09_annotation	I, IV	T_mag_catalogue_full
+11	11_metabolism.sh	final	full metabolic reconstruction, all 29 MAGs, all pathways	09_annotation	10_function	VI	—
+11b	11b_kofam_archaea.sh	final	diagnose annotation bias, then fix it with KOfam	09_annotation, 10_function	11_kofam	I	—
+12	12_derep_phylogeny.sh	final	dereplication (ANI) + phylogenomic trees	07_mags, 08_taxonomy	12_phylogeny	I, V	—
+12b	12b_reference_trees.sh	final	publication-grade trees with taxonomy-selected refs	07_mags, 08_taxonomy	12_phylogeny	I, V (under step 12)	S_phylogenomics_archaea/S_phylogenomics_bacteria
+13	13_readprofile.sh	final	community composition WITHOUT binning	00_input, 02_mapping, 04_polish, 07_mags	13_profile	II	T_profilers
+13b	13b_silva_ssu.sh	final	SSU rRNA profiling: the rare and uncultured majority	—	13_profile	II	—
+13c	13c_silva_report.sh	final	re-read the SILVA profile from disk and report it	—	unknown	II	unknown
+13d	13d_silva_verify.sh	final	is the sediment SSU profile real?	—	13_profile	II	—
+13e	13e_erwinia_resolve.sh	final	settle the Erwinia question with the assembly	—	13_profile	II	—
+13f	13f_testrun_diagnose.sh	final	what ARE metagenome_RBK_test and _LSK_test?	—	13_profile, 00_input	II	—
+14	14_comparative.sh	final	are these organisms Etoliko-endemic or euxinic-basin	—	14_comparative	I, II, IV	S_biogeography, T_public_runs, T_recruitment_public
+14b	14b_find_datasets.sh	final	discover more comparison datasets, reproducibly	—	14_comparative	I (under step 14)	T_public_runs, T_recruitment_public
+15	superseded/15_marker_trees.sh	superseded	resolve the three annotation traps by phylogeny [superseded by 15_marker_trees_curl.sh (wget broken on the server; step 77 item C)]	11_kofam	15_marker_trees	I	S_mcrA_tree
+15	15_marker_trees_curl.sh	final	resolve the three annotation traps by phylogeny [caveat: use this, not 15_marker_trees.sh (wget)]	11_kofam	15_marker_trees	I	S_mcrA_tree
+15b	15b_tree_verdicts.py	final	15b_tree_verdicts.py -- assign each query sequence by PATRISTIC DISTANCE.	—	unknown	I	unknown
+16	superseded/16_environment_genes.sh	superseded	what makes these genomes fit ETOLIKO specifically [superseded by 16b (CORRECTIONS_INDEX: keyword match, predates 00_config_patch.sh, no control; never re-run)]	07_mags, 09_annotation	16_environment	I, II	—
+16b	16b_environment_genes.sh	final	SURVIVING ETOLIKO: sulfide, salt, metals, oxygen [caveat: replaces step 16]	12_results	16_environment	IV	T_env_stress
+17	17_comparative_genomics.sh	final	what differs between close relatives?	07_mags, 09_annotation	17_compgen	I, II	—
+18	18_viruses_mges.sh	final	viruses, proviruses and plasmids	02_mapping, 04_polish, 07_mags	18_viruses	I, II	S_viruses_defence, T_mobilome_assembly, T_mobilome_crispr_hits, T_mobilome_defence, T_mobilome_proviruses
+19	superseded/19_auxotrophy.sh	superseded	who depends on whom [superseded by 19b_auxotrophy_fixed.sh]	07_mags, 09_annotation	19_auxotrophy, 11_kofam	I, II	—
+19b	19b_auxotrophy_fixed.sh	final	auxotrophy, done properly	07_mags, 09_annotation	19b_auxotrophy, 11_kofam	II	T_auxotrophy_full
+20	20_substrates.sh	final	what this community actually degrades	07_mags, 09_annotation, 11_kofam	20_substrates	II	—
+21	21_interaction_network.sh	final	who competes with whom, who feeds whom	07_mags, 09_annotation, 19_auxotrophy, 20_substrates	21_network, 11_kofam	II	—
+22	22_singlem.sh	final	SingleM: how much of the community did we actually get?	—	22_singlem	II	—
+23	23_genome_extras.sh	final	secretome, rRNA operon copy number, genome statistics	07_mags, 09_annotation	23_extras	II	—
+23b	23b_pul_analysis.sh	final	is Gaoshiqia a public good or a private digester?	—	23_extras	II	—
+23c	23c_secreted_vs_pul.sh	final	do the two secretome results actually disagree?	—	23_extras	II	—
+23d	23d_t9ss_export.sh	final	does Gaoshiqia have a route OUT of the cell at all?	07_mags, 09_annotation	23_extras	II	—
+23e	23e_secretion_systems.sh	final	the census 23d should have been	07_mags, 09_annotation	23_extras	II	—
+24	24_deep_taxonomy.sh	final	how to see MORE taxa in the same data	—	24_deep_taxonomy	II	—
+25	25_final_catalogue.sh	final	one row per genome, everything this project knows	07_mags, 11_kofam, 12_phylogeny, 15_marker_trees	12_results	II, III	—
+26	26_crossmap.sh	final	are the organisms we cultured actually IN the sediment?	00_input	26_crossmap	II, III	T_mag_catalogue_full
+27	27_rrna_correction.sh	final	the correction step 23 asked for and nobody did	—	27_rrna_corrected	II, III	—
+28	28_crispr_mge_defence.sh	final	who has been infected by what, and who fights back	07_mags, 09_annotation, 18_viruses	28_crispr	I, II	S_viruses_defence, T_mobilome_assembly, T_mobilome_crispr_hits, T_mobilome_defence, T_mobilome_proviruses
+29	29_transporter_check.sh	final	a consumer without a transporter is not a consumer	07_mags, 09_annotation, 11_kofam, 21_network	29_transport	I, II, III	—
+30	30_dbcan_cazymes.sh	final	replace every keyword-matched CAZyme with a real one	—	30_dbcan	II, III, V	S_function_heatmap, T_cazy_family_matrix
+31	31_readlevel_methylotrophy.sh	final	is the methylotrophic consumer end in the	15_marker_trees	31_readlevel	II	T_readlevel_markers, T_unbinned_fraction, T_unbinned_marker_levels
+32	32_strain_divergence.sh	final	what did the enrichment do to one organism?	—	32_strain	III	—
+32b	32b_pileup_join.sh	final	the pileup and comparison half of step 32, rebuilt so	—	32_strain	III	T_strain_divergence, T_unbinned_fraction, T_unbinned_marker_levels
+32c	32c_fixed_sites_anatomy.sh	final	what ARE the 81 fixed differences?	07_mags, 09_annotation	32_strain	III	T_strain_divergence, T_unbinned_fraction, T_unbinned_marker_levels
+32d	32d_repeat_control.sh	final	are the 81 differences divergence, or paralogy?	07_mags, 09_annotation	32_strain	III	T_strain_divergence, T_unbinned_fraction, T_unbinned_marker_levels
+33	33_antismash_bgc.sh	final	biosynthetic gene clusters: what do these genomes	07_mags, 09_annotation, 26_crossmap	33_antismash	III	T_antismash
+33b	33b_mibig_novelty.sh	final	do any of the 141 clusters match a KNOWN compound?	—	33_antismash	III	S_bgc, T_antismash
+34	34_unbinned_function.sh	final	the 2% problem, attacked directly	—	34_unbinned, 11_kofam	III	T_readlevel_markers, T_unbinned_fraction, T_unbinned_marker_levels
+34b	34b_methylamine_arm.sh	final	the methylamine arm, done with the right KOs and	—	34b_methylamine	III	T_pyrrolysine, T_pyrrolysine_summary, T_unbinned_fraction, T_unbinned_marker_levels
+34c	34c_read_length_bias.sh	final	is step 34's x/rpoB proxy distorted by gene length?	—	34_unbinned	III	T_readlevel_markers, T_unbinned_fraction, T_unbinned_marker_levels
+35	35_kaiju_protein_taxonomy.sh	final	classify the reads in PROTEIN space	—	35_kaiju	III	—
+35b	35b_assignment_rank.sh	final	where do Kaiju's reads ACTUALLY land, by rank?	—	35_kaiju	III	T_profilers, T_unbinned_fraction, T_unbinned_marker_levels
+36	36_hmm_gap_closure.sh	final	run the two profile searches earlier steps deferred	—	36_gapclose	III, IV	—
+36b	36b_ecf_transporters.sh	final	did step 36 look for the wrong transporter family?	—	36_gapclose	III	T_b12_ecf
+36c	36c_t9ss_cargo_identity.sh	final	WHAT are the 254 T9SS cargo proteins?	09_annotation, 23_extras	36_gapclose	IV	—
+36d	36d_cazyme_ctd_cross.sh	final	DO THE CAZymes CARRY THE EXPORT TAG?	12_results	36_gapclose, 30_dbcan	IV	T_cazy_family_matrix
+37	37_biogeography_verdict.sh	final	read step 14's result, with a control that	—	14_comparative	IV	S_biogeography, T_public_runs, T_recruitment_public
+38	38_preflight_gems.sh	final	CAN step 38 RUN ON THIS MACHINE AT ALL?	09_annotation	38_preflight	I, V, VI	—
+38b	38b_gapseq_probe.sh	final	ONE GENOME THROUGH gapseq, TIMED, BEFORE COMMITTING 29	—	38_gems	V	—
+39	39_loose_ends.sh	final	three open items that need measurement, not new tools	03_assembly, 04_polish, 07_mags	39_loose_ends	V	—
+39b	39b_provirus_reassign.sh	final	CASHING IN 39A: the MAG-level provirus calls	18_viruses	39_loose_ends	V	—
+39c	39c_secretome_bound.sh	final	BOUNDING THE ARCHAEAL SECRETOME APPROXIMATION	—	39_loose_ends	V	—
+40	40_integration.sh	final	four cheap jobs that need the idle 23 cores	—	40_integration	V	S_ani_isolates
+41	41_env_and_checks.sh	final	namespace probe for the SMETANA environment file, plus four	—	41_env_checks	VII	—
+41b	41b_fixes.sh	final	repairs to 41, plus the MTP4 question 41 raised.	—	41_env_checks	I, V	—
+41c	41c_env_write.sh	final	41c -- resolve compounds BY ModelSEED ID (verified against the model's own names),	—	41_env_checks	VII (under step 41)	—
+41d	41d_write_env.sh	final	41d -- settle the exchange-reaction convention, then WRITE the environment file.	—	41_env_checks	VII (under step 41)	—
+41e	41e_community_convention.sh	final	41e -- the decisive test, and the mcr answer that may already be on disk.	36_gapclose	41_env_checks	I	—
+41f	41f_smoke_and_kofam.sh	final	41f -- (A) stop hand-building communities and let SMETANA do it, end to end. [caveat: archaea_kofam_markers.tsv has no score threshold]	—	41_env_checks	I, II, III, IV	—
+41g	41g_smoke_real.sh	final	41g -- (A) a smoke test that cannot pass by reading its own inputs.	—	41_env_checks	I, II	—
+41h	41h_diagnose_na.sh	final	41h -- why is mip/mro 'n/a', and does the medium reach the model at all?	—	41_env_checks	VII (under step 41)	—
+41i	41i_medium_both_formats.sh	final	41i -- the medium is a gapseq input FIRST and a SMETANA input SECOND.	—	41_env_checks	VII (under step 41)	—
+41j	41j_medium_by_subtraction.sh	final	41j -- build the Etoliko environment BY SUBTRACTION from a medium known to work.	—	41_env_checks	VII	—
+41k	41k_anoxic_assert.sh	final	41k -- remove O2 from the medium, and make its absence an ASSERTION rather than an	07_mags	41_env_checks	VII	—
+41l	41l_fill_vs_analysis.sh	final	41l -- verify ids against gapseq's OWN ModelSEED database, then build TWO media.	—	41_env_checks	VII	—
+41m	41m_confirm_ids.sh	final	41m -- confirm every compound id from the ModelSEED table's FULL row.	—	41_env_checks	VII	—
+42	42_build_gems.sh	final	42 -- build genome-scale models for the in-situ ten. Long-running; resumable.	—	42_gems	VII	—
+42b	42b_fix_transport.sh	final	42b -- find-transport, draft and fill failed to start: exit=1 in 0s on all ten.	—	42_gems	VII (under step 42)	—
+42c	42c_diagnose_draft.sh	final	42c -- three genomes failed at `draft`: exit=0 in ~10s, no -draft.RDS. One of them is	—	42_gems	VII (under step 42)	—
+42d	42d_biomass_fix.sh	final	42d -- three MAGs have no recoverable 16S, so gapseq draft cannot infer Gram staining	—	42_gems	VII (under step 42)	—
+43	43_smetana_setup.sh	final	43 -- prepare and PROVE the SMETANA setup before running anything that produces a	—	43_smetana	III, VII	—
+43b	43b_refill_analysis.sh	final	43b -- all ten models grow 0.0000 alone on ETO_SED, so the positive control's zero	—	43_smetana	VII	—
+43c	43c_biomass_diagnosis.sh	final	why does every member grow and the community not?	—	43_smetana	VII (under step 43)	—
+43d	43d_merge_dissection.sh	final	why does the merge produce ZERO pool reactions?	—	43_smetana	VII (under step 43)	—
+43e	43e_use_smetana_properly.sh	final	stop building the community myself.	—	43_smetana	VII (under step 43)	—
+43f	43f_control_then_run.sh	final	build a control that must succeed, then believe the zeros.	—	43_smetana	VII (under step 43)	—
+43g	43g_control_fixed.sh	final	repair the control, diagnose mip=n/a, then run.	—	43_smetana	VII (under step 43)	—
+43h	43h_refill_reversal.sh	final	the gapfilling medium decided the answer. Re-test it.	—	43_smetana	VII (under step 43)	—
+43i	43i_methanogen_and_currencies.sh	final	can the community feed the methanogen?	—	43_smetana	VII (under step 43)	—
+43j	43j_which_archaeon.sh	final	is the modelled archaeon the one the argument rests on?	—	43_smetana	VII (under step 43)	—
+43k2	43k2_verify_and_repair.sh	final	the model was fine; my gate was wrong.	43_smetana	43k_archaea	VII (under step 43)	—
+43k	43k_archaea_rebuild.sh	final	build MTP4, and make both archaea methanogens again.	—	43k_archaea	VII (under step 43)	—
+43l	43l_community_eleven.sh	final	the eleven-member community, at last.	—	43_smetana, 43k_archaea	VII (under step 43)	—
+43m	43m_mcr_audit_and_run.sh	final	audit methanogenesis, declare the constraints, then run.	—	43_smetana	VII (under step 43)	—
+43n	43n_fix_constraint_and_trace.sh	final	verify the constraint properly, find the real gap.	—	43_smetana	VII (under step 43)	—
+43o	43o_solver_fix.sh	final	make the detailed run survive, and prove it on a small case first.	—	43_smetana	VII (under step 43)	—
+43p	43p_pairwise.sh	final	SCIP cannot take the eleven. Ask the question pairwise instead.	—	43_smetana	VII (under step 43)	—
+43q	43q_real_test_5e99434.sh	final	the medium that can actually show syntrophy.	—	43_smetana	VII (under step 43)	S_exchange_matrix, T_smetana_pairs, T_smetana_viable_pairs
+44	44_loose_ends_9fa4fa3.sh	final	the four open numbers, and the in-situ set decision.	—	44_loose_ends	unknown	—
+44b	44b_finish_c55f369.sh	final	the two sections 44 could not run, and the ANI names resolved.	—	44_loose_ends	unknown	—
+44c	44c_b12_4ad3897.sh	final	fix the parser, then decide whether B12 can be answered at all.	11_kofam	44_loose_ends	unknown	—
+45	45_kofam_cf52d21.sh	final	find an existing genome-wide annotation, or make one.	11_kofam	45_kofam_full	IV	S_function_heatmap, S_mcrA_nomination, T_b12_ecf, T_kofam_panels
+45b	45b_profiles_f1b0801.sh	final	what is in profiles.tar.gz, and B12 from gapseq now.	—	45_kofam_full	unknown	S_function_heatmap, S_mcrA_nomination, T_b12_ecf, T_kofam_panels
+45c	45c_kofam_614ec04.sh	final	the genome-wide KOfam run, and B12 for all 29.	06_binqc	45_kofam_full	unknown	S_function_heatmap, S_mcrA_nomination, T_b12_ecf, T_kofam_panels
+46	46_verify_6f89cb9.sh	final	verify the KOfam run, then build the tables figures need.	45_kofam_full	unknown	unknown	unknown
+47	47_master_2c00bba.sh	final	one table per genome, and the three questions 46 raised.	—	47_master	unknown	S_MAG_quality, S_biogeography, S_exchange_matrix, S_function_heatmap, S_mcrA_nomination
+48	48_sulfur_8c346b0.sh	final	is dsrAB anywhere: in the MAGs, or in the unbinned fraction?	—	48_sulfur	unknown	—
+48b	48b_unbinned_d075632.sh	final	search the UNBINNED proteins, and refuse to conclude from a	34_unbinned, 45_kofam_full	48_sulfur	unknown	—
+49	49_dsr_fa0a54d.sh	final	whose are the dsrAB contigs, and is SED's absence real?	—	49_dsr	unknown	—
+49b	49b_contigs_03458c9.sh	final	identify the dsrAB contigs by reading what else is on them.	04_polish, 35_kaiju	49_dsr	unknown	—
+50b	50b_harvest_265ffe3.sh	final	dump the primary output of EVERY directory in	11_kofam	unknown	unknown	unknown
+51	51_gapfill_6d62f57.sh	final	the second and final harvest pass.	05_consensus, 06_binqc, 08_taxonomy, 10_function	unknown	unknown	unknown
+52	52_mcra_recheck_03732e7.sh	final	why is ETO_LIQ_MAG_017 missing from the mcrA tree, and add it.	06_binqc	52_mcra_recheck	unknown	—
+53	53_mcra_nomination_a860e20.sh	final	find MAG_017's mcr genes properly, and find out why	06_binqc	53_mcra_nomination	IV	—
+54	54_mcr_fragmentation.sh	final	is ETO_LIQ_MAG_017's mcr split by frameshifts?	—	54_mcr_fragmentation	unknown	S_mcrA_nomination
+55	55_dsr_identity_182661e.sh	final	who do the two unbinned dsrAB contigs belong to?	49_dsr	55_dsr_id	unknown	—
+56	56_dsr_placement_573d9e6.sh	final	identify the two unbinned dsrAB organisms, properly.	—	56_dsr_placement	unknown	—
+57	57_dsr_binning_test_5c84875.sh	final	does LIQ_contig_19299 belong to ETO_LIQ_MAG_022?	—	57_dsr_bin	unknown	S_dsr_binning
+58	58_dsr_finish_114e2a7.sh	final	the two tests that close the dsrAB question.	—	58_dsr_finish	unknown	S_dsr_binning
+59	59_dsr_close_e16c234.sh	final	the last three questions on the dsrAB contigs.	—	59_dsr_close	unknown	—
+60	60_readlevel_recon_c31d88d.sh	final	how does the read-level marker pipeline actually work,	—	60_recon	unknown	—
+61	61_mtmB_resolve_457a72b.sh	final	7 reads or 1,978? Settle mtmB with decoys that can win.	31_readlevel, 34_unbinned	61_mtmB	unknown	—
+61	superseded/61_mtmB_resolve_6e79f0e.sh	superseded	7 reads or 1,978? Settle mtmB with decoys that can win. [superseded by 61_mtmB_resolve_457a72b.sh (61_mtmB/ outputs dated after 457a72b; only refs.faa from 6e79f0e)]	31_readlevel, 34_unbinned	61_mtmB	unknown	—
+62	62_mtmB_flagged_d54cb71.sh	final	what are the two references taking 61% of mtmB?	—	62_mtmB_flagged	unknown	—
+63	63_mtmB_relabel_5b954b8.sh	final	the mtmB target set is mostly bacteria. Relabel, recount.	—	63_mtmB_relabel	unknown	—
+64	64_mtbB_mtaB_f115e09.sh	final	the other two methylamine/methanol markers, done right.	34_unbinned	64_mtbB_mtaB	unknown	—
+65	65_refset_rarefy.sh	final	is mtbB's excess a gene or a reference count?	—	65_rarefy	unknown	—
+66	66_network_recon_a883758.sh	final	what is actually in the SMETANA output, and a figure	—	66_network	unknown	—
+67	67_network_compounds_8123eab.sh	final	what is actually being traded, and in which direction.	—	67_network	unknown	S_compound_classes, S_exchange_matrix, T_smetana_pairs, T_smetana_viable_pairs
+68	68_network_control.sh	final	is the direction of the network biology, or gap-filling?	—	68_control	unknown	—
+69	69_auxotrophy_pairing.sh	final	the corroboration test, done properly this time.	—	69_pairing	unknown	—
+70	70_why_no_uptake.sh	final	why do MTP4 and MAG_025 receive nothing?	—	70_uptake	unknown	—
+71	71_archaeal_cysteine.sh	final	is MTP4's Cys 0,00 an auxotrophy or a marker-set failure?	11_kofam, 11b_kofam_archaea, 45_kofam_full	71_cys	unknown	—
+72	72_cys_recheck.sh	final	step 71 section C read the wrong column. Redo it.	—	72_cys	unknown	—
+73	73_cys_fullset.sh	final	the control failed because the KOs were never searched.	11_kofam, 45_kofam_full	73_cys	unknown	—
+74	74_cys_control_panel.sh	final	the control's failures ARE the finding.	—	74_cys	unknown	T_auxotrophy_full
+75	75_ani_locate.sh	final	find the ANI-against-cultured-isolates table.	—	75_ani_locate	unknown	—
+76	76_ani_isolates.sh	final	did the ANI run ever contain a cultured isolate?	07_mags, 40_integration	76_ani_isolates	unknown	—
+77	77_housekeeping.sh	final	reclaim disk, and produce a working marker-tree script.	45_kofam_full	77_housekeeping	III	—
+78	78_housekeeping_fix.sh	final	correct three wrong assumptions from step 77.	—	unknown	unknown	unknown
+79	79_mtbB_mtaB.sh	final	the last two methylamine/methanol markers, measured the	11_kofam, 61_mtmB	79_mtbB_mtaB	unknown	T_readlevel_markers
+80	80_mtbB_mtaB_finish.sh	final	can the decoy labels be quoted as gene counts?	00_input	80_mtbB_finish	unknown	T_readlevel_markers
+81	81_mtbB_why.sh	final	why mtbB fails where mtaB passes.	—	81_mtbB_why	III	—
+82	82_mtbB_who.sh	final	which organisms hold mtbB's reads, and does the ceiling	—	82_mtbB_who	unknown	T_readlevel_markers
+83	83_who_really.sh	final	resolve the organism behind every reference, properly.	07_mags	83_who_really	unknown	T_readlevel_markers
+84	84_open_denominator.sh	final	the ceiling compared an open reference set against	—	84_open_denominator	unknown	—
+85	superseded/85_tree_inventory.sh	superseded	what phylogenies exist, and are they figure-ready? [superseded by 86_tree_inventory_fix.sh (85 left no output directory)]	—	unknown	unknown	unknown
+86	86_tree_inventory_fix.sh	final	parse the trees, and check who is in them.	12_phylogeny	86_tree_inventory	unknown	—
+87	87_dsr_context.sh	final	the facts panel (a) of fig13 needs, and the A/B split.	—	87_dsr_context	unknown	—
+88	88_reconcile.sh	final	a number in the report does not match the file, and two	—	88_reconcile	III	—
+89	89_fig_inputs.sh	final	the inputs for the two phylogenetic figures that are still	12_phylogeny, 41_env_checks	89_fig_inputs	unknown	—
+90	90_mag_bin_mapping.sh	final	two files disagree about which genome is which, and	07_mags, 11_kofam, 45_kofam_full, 47_master	90_mag_bin_mapping	unknown	S_mcrA_nomination
+91	91_mcr_refset_audit.sh	final	the MCR reference panel may not be clean.	—	91_mcr_refset_audit	unknown	—
+92	92_mcra_panel_composition.sh	final	the decoy panel is not what the figure says	—	92_panel_composition	unknown	—
+93	93_mttb_refset_and_alignment.sh	final	the same audit for mttB, and the question	—	93_mttb_audit	unknown	—
+94	94_mldist_reader_fix.sh	final	step 93's mttB numbers are wrong, and the file on	15_marker_trees	94_mldist_fix	unknown	—
+95	95_mttb_overlap.sh	final	two corrections of mine, and the measurement that	—	95_mttb_overlap	unknown	—
+96	96_mttb_salvage.sh	final	the mttB matrix is broken; is the QUESTION still	—	96_mttb_salvage	unknown	—
+97	97_mttb_domain_fix.sh	final	the mttB matrix is broken; is the QUESTION still	—	96_mttb_salvage	unknown	—
+—	etoliko_figstyle.py	final	etoliko_figstyle.py -- one house style for every thesis figure.	—	unknown	unknown	unknown
+—	etoliko_tree.py	final	etoliko_tree.py -- Newick parsing and rectangular phylogram drawing.	—	unknown	unknown	unknown
+—	fig01_mag_quality.py	final	fig01_mag_quality.py -- η ποιότητα των 29 MAGs, κατά MIMAG.	—	unknown	unknown	S_MAG_quality
+—	fig02_sediment_breadth.py	final	fig02_sediment_breadth.py -- το σύνολο in situ, ορισμένο από ένα κατώφλι.	26_crossmap	unknown	unknown	unknown
+—	fig03_function_heatmap.py	final	fig03_function_heatmap.py -- τι μπορεί να κάνει κάθε γονιδίωμα.	—	unknown	unknown	S_function_heatmap
+—	fig04_methanogen_niche.py	final	fig04_methanogen_niche.py -- εξοπλισμός έναντι ανιχνευσιμότητας.	—	unknown	unknown	unknown
+—	fig05_sed_vs_liq.py	final	fig05_sed_vs_liq.py -- τι διάλεξε η καλλιέργεια.	—	unknown	unknown	unknown
+—	fig06_exchange_matrix.py	final	fig06_exchange_matrix.py -- ποιος τρέφει ποιον, στην ανακατασκευή.	47_master, 67_network	unknown	unknown	S_exchange_matrix
+—	fig07_what_is_exchanged.py	final	fig07_what_is_exchanged.py -- τι ανταλλάσσεται στην ανακατασκευή.	67_network	unknown	unknown	S_compound_classes
+—	fig08_methylamine_ratio.py	final	fig08_methylamine_ratio.py -- η μεθυλαμίνη στο ίζημα και στην καλλιέργεια.	61_mtmB, 63_mtmB_relabel	unknown	unknown	unknown
+—	fig09_biogeography.py	final	fig09_biogeography.py -- 29 γονιδιώματα που δεν υπάρχουν πουθενά αλλού.	14_comparative, 47_master	unknown	unknown	S_biogeography
+—	fig10_dsr_binning.py	final	fig10_dsr_binning.py -- σε ποιο γονιδίωμα ανήκουν τα δύο contigs του dsrAB.	57_dsr_bin	unknown	unknown	S_dsr_binning
+—	fig11_ani_isolates.py	final	fig11_ani_isolates.py -- the catalogue's genomes are not the cultured ones.	—	unknown	unknown	S_ani_isolates
+—	fig12_phylogenomics.py	final	fig12_phylogenomics.py -- where the 29 genomes sit among GTDB references.	12_phylogeny	unknown	unknown	S_phylogenomics_archaea/S_phylogenomics_bacteria
+—	fig13_dsr_tree.py	final	fig13_dsr_tree.py -- where the two unbinned dsrAB operons sit, and what they are.	—	unknown	unknown	unknown
+—	fig14_15_mcra.py	final	fig14_15_mcra.py -- the mcrA nomination, and the placement with its control.	47_master	unknown	unknown	S_mcrA_nomination
+—	make_figures.sh	final	build every thesis figure from MASTER.tsv.	—	50_figures	unknown	—
+—	make_tables.py	final	make_tables.py -- every table for the metagenome chapter, in Greek and English.	03_binning, 05_consensus, 08_taxonomy, 14_comparative	unknown	unknown	unknown
+—	run.sh	final	run a script only if its contents match the md5 in its own filename.	—	unknown	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/pipeline_rest.sh	final	detached driver for the remaining SP01 stages (survives a dropped connection)	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/pipeline_rest2.sh	final	unknown	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/run_SP01.sh	final	SP01: provenance of the "31 MAGs" + curated diagnostic-marker matrix.	11_kofam, 99_thesis_audit	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s1_provenance.py	final	SP01 step 1 -- which genomes were Combined_analysis's "31 MAGs" / "34 genomes", and how it called markers.	00_inputs, 05_all_31_mags_analysis, 11_kofam	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s2_isolate_detail.py	final	SP01 step 2b -- KofamScan-style detail table for the isolates (all hits kept, '*' = passes curated threshold).	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s2_prep_isolates.py	final	SP01 step 2a -- concatenate the five Prokka proteomes as >ISOLATE|locus_tag; record md5s.	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s3_markers.py	final	SP01 step 3b -- curated-threshold marker calls for 34 genomes + QC controls.	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s3_targets.py	final	SP01 step 3a -- target KO profiles + one proteome of the 34 genomes (29 MAGs + 5 isolates).	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s4_nif.sh	final	SP01 step 4a -- NifH (K02588) and NifD (K02586) hits above threshold placed in a reference tree	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s4_nif_classify.py	final	SP01 step 4b -- classify each NifH/NifD query by patristic nearest labelled reference in the FastTree tree.	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s5_hyd.py	final	SP01 step 4c -- hydrogenase catalytic subunits classified against the HydDB-labelled reference sets	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s6_urease_count.py	final	SP01 step 5b -- sediment reads per million for ureC and the step-34 controls, step-34 counting rules:	—	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s6_urease_ref.sh	final	SP01 step 5a -- ureC (K01428) read-level reference set, built the step-34 way:	34_unbinned	SP01_markers	unknown	unknown
+SP01_markers	sp_bundles/SP01_markers/scripts/s7_build.py	final	SP01 step 6-7 -- markers_long.tsv, markers_wide.tsv (with M00087, nif tree, hydrogenase and dsr-tree columns), versions.tsv.	34_unbinned	SP01_markers	unknown	unknown
+SP02_recruitment	sp_bundles/SP02_recruitment/bg_extended/run_SP02.sh	final	run_SP02.sh (bg_extended) -- SP02 re-run with GTDB R232 Clostridium_J/Terrisporobacter/Paraclostridium backgrounds: identity-filtered competitive read recruitment (29 MAGs + isolates + background).	99_thesis_audit	SP02_recruitment	unknown	T_mag_catalogue_full
+SP02_recruitment	sp_bundles/SP02_recruitment/bg_extended/scripts/s0_bg.sh	final	bg_extended step 0 -- GTDB R232 species representatives of g__Clostridium_J, g__Terrisporobacter, g__Paraclostridium	—	SP02_recruitment	unknown	T_mag_catalogue_full
+SP02_recruitment	sp_bundles/SP02_recruitment/bg_extended/scripts/s1_refs.py	final	SP02 step 1 -- two competitive references with genome~contig names; per-genome lengths; md5 of every input.	—	SP02_recruitment	unknown	T_mag_catalogue_full
+SP02_recruitment	sp_bundles/SP02_recruitment/bg_extended/scripts/s4_hist.py	final	SP02 step 4 -- per-genome read-identity histogram (1% bins) from primary alignments with >=50% of the read aligned.	—	SP02_recruitment	unknown	T_mag_catalogue_full
+SP02_recruitment	sp_bundles/SP02_recruitment/bg_extended/scripts/s5_build.py	final	SP02 step 5 -- recruitment_by_identity.tsv, identity_histograms.tsv, calls, QC, versions.tsv.	—	SP02_recruitment	unknown	T_mag_catalogue_full
+SP02_recruitment	sp_bundles/SP02_recruitment/run_SP02.sh	final	SP02: identity-filtered competitive read recruitment (29 MAGs + isolates + background).	99_thesis_audit	SP02_recruitment	unknown	T_mag_catalogue_full
+SP02_recruitment	sp_bundles/SP02_recruitment/scripts/s1_refs.py	final	SP02 step 1 -- two competitive references with genome~contig names; per-genome lengths; md5 of every input.	—	SP02_recruitment	unknown	T_mag_catalogue_full
+SP02_recruitment	sp_bundles/SP02_recruitment/scripts/s4_hist.py	final	SP02 step 4 -- per-genome read-identity histogram (1% bins) from primary alignments with >=50% of the read aligned.	—	SP02_recruitment	unknown	T_mag_catalogue_full
+SP02_recruitment	sp_bundles/SP02_recruitment/scripts/s5_build.py	final	SP02 step 5 -- recruitment_by_identity.tsv, identity_histograms.tsv, calls, QC, versions.tsv.	—	SP02_recruitment	unknown	T_mag_catalogue_full
+SP03_16S_links	sp_bundles/SP03_16S_links/run_SP03.sh	final	SP03: 16S links between genomes (29 MAGs + 5 isolates) and amplicon OTUs, with depth profiles.	99_thesis_audit	SP03_16S_links	unknown	unknown
+SP03_16S_links	sp_bundles/SP03_16S_links/scripts/s1_collect.py	final	SP03 step 1 -- every 16S copy of the 29 MAGs and 5 isolates via barrnap (kingdom by GTDB domain), plus inputs md5.	—	SP03_16S_links	unknown	unknown
+SP03_16S_links	sp_bundles/SP03_16S_links/scripts/s3_links_profiles.py	final	SP03 steps 3-5 -- link classes, depth profiles, Fig 6.2 data, QC.	—	SP03_16S_links	unknown	unknown
+SP04_archaeal_orders	sp_bundles/SP04_archaeal_orders/chain.sh	final	unknown	—	SP04_archaeal_orders	unknown	unknown
+SP04_archaeal_orders	sp_bundles/SP04_archaeal_orders/run_SP04.sh	final	SP04: order-level classification of archaeal V4-V5 OTUs against GTDB SSU R232 (+ SILVA 138.2 labels of ms v2).	99_thesis_audit	SP04_archaeal_orders	unknown	unknown
+SP04_archaeal_orders	sp_bundles/SP04_archaeal_orders/scripts/s1_db.py	final	SP04 step 1 -- GTDB ssu_all_r232 -> vsearch sintax database and plain BLAST FASTA.	—	SP04_archaeal_orders	unknown	unknown
+SP04_archaeal_orders	sp_bundles/SP04_archaeal_orders/scripts/s2_build.py	final	SP04 steps 2-4 -- per-OTU GTDB order (sintax >=0.8; BLAST top hit >=90% id over >=90% of the OTU), depth profiles per order,	—	SP04_archaeal_orders	unknown	unknown
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/run_SP05.sh	final	SP05: (H2) identity of the unbinned dsrAB contigs LIQ_contig_12880 / LIQ_contig_19299;	58_dsr_finish, 99_thesis_audit	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/kofam.py	final	Shared: KOfam calls from work/kofam_all.tbl with ko_list thresholds (score_type honoured).	—	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/s1_inputs.py	final	SP05 step 1 -- inputs with md5: the two dsr contigs, every protein called on them (34_unbinned Prodigal gene calls, the set the	—	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/s2_concat.py	final	SP05 step 2b -- concatenated DsrAB alignment (trimmed A + trimmed B). A taxon is concatenated only when it has exactly one DsrA	—	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/s2_dsr_prep.py	final	SP05 step 2a -- label step-58 references and contig proteins as DsrA (K11180) or DsrB (K11181) by KOfam, write tree inputs.	—	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/s3_dsr_place.py	final	SP05 step 3 -- DsrA / DsrB / DsrAB placement (IQ-TREE LG+C20+F+G, UFBoot 1000).	—	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/s4_lca.py	final	SP05 step 2 -- LCA of the top-10 DIAMOND hits (by bitscore, SwissProt + TrEMBL pooled) for every contig protein; NCBI taxdump	—	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/s5_mag022.py	final	SP05 step 3 -- could the dsr contigs belong to ETO_LIQ_MAG_022 (LIQ_das_metabat_022, JBAIYS01, Desulfohalotomaculaceae)?	—	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/s6_mcr_prep.py	final	SP05 step 4a -- step-15 nomination for MAG_017 using the step-54 fragment-joined McrA: KOfam K00399 score of each joined	15_marker_trees	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/s7_mcr_verdict.py	final	SP05 step 4b -- MAG_017 McrA verdict in the mcrA tree, with the step-15 rule (Newick-adjacency MCR vs ACR) and the nearest	15_marker_trees	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP05_dsr_mcr	sp_bundles/SP05_dsr_mcr/scripts/tree.py	final	Minimal Newick reader for IQ-TREE output: leaves, patristic distances, node supports, bipartitions.	—	SP05_dsr_mcr	unknown	S_dsr_trees, S_mcrA_tree
+SP07_final	sp_bundles/SP07_final/B1_dsr_reads/scripts/run.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B2_mcrA_reads/scripts/run.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B3_geochem_stats/scripts/b3.R	final	Extractions summed per depth, then relative abundance (as SP03/SP04). Archaea/ITS2 depths from the bacterial sample with the same YG number.	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B4_unbinned_phyla/scripts/b4.sh	final	B4: unbinned abundant phyla. Step 1 = multi-sample (SED self + LIQ cross coverage) re-binning of the SED assembly.	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B4_unbinned_phyla/scripts/b4_contig_tax.py	final	CAT-like contig classification: per protein LCA of top-10 DIAMOND hits (UniProt TrEMBL, NCBI taxdump), contig phylum = majority of	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B4_unbinned_phyla/scripts/b4_eval.py	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B4_unbinned_phyla/scripts/b4b.sh	final	B4 (revised 2026-10-11, user decision): instead of re-running the published binning (identical inputs and parameters;	06_binqc	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B4_unbinned_phyla/scripts/bin_catalogue.py	final	Full catalogue of every workspace_2 bin (SED + LIQ; raw MetaBAT2/VAMB/SemiBin2 + DAS_Tool union) with assembly statistics,	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B5_mag022_dsr/scripts/b5.sh	final	1. physical linkage: every read with an alignment (MAPQ>=20) on LIQ_contig_19299 or a MAG_022 contig, with its SA partners	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B5_mag022_dsr/scripts/b5_link.py	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B5_mag022_dsr/scripts/b5_report.py	final	nearest MAG by TNF centroid among the 29 MAGs	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B6_arc_otu22/scripts/b6.sh	final	linked adapter: Arc519F at 5', reverse complement of Arc915R at 3'; both required	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/B6_arc_otu22/scripts/b6_report.py	final	window 841-850 of the gene, base by base, from the iddef2 alignment of each amplicon	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/dsrab_silva/build_silva.py	final	B1 v3: reference trees from dsrAB@SILVA (Jun 2023 release, GTDB r214 taxonomy; 1,319 dsrA / 1,280 dsrB incl. uncultured family-level lineages 1-13).	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/dsrab_silva/function_check.py	final	Is the oxidative (rDsrAB) label set monophyletic in the tree? Reports the smallest clade containing all Oxidative leaves.	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/dsrab_silva/place_v3.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/dsrab_silva/run_v3.sh	final	B1 v3: dsrAB@SILVA trees (GTDB r214), LG+G4+F UFBoot 1000 (C20 intractable at 600-800 taxa), then placement + leave-one-out QC.	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/lib.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/place.py	final	SP07 B1/B2: place sediment marker reads in the SP05 trees.	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/place_v2_backup.py	final	SP07 B1/B2: place sediment marker reads in the SP05 trees.	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/read_ids.py	final	Rebuild the read-ID lists behind dsrA 70 / dsrB 68 (step 34, best hit per read + TrEMBL dominance filter,	31_readlevel, 34_unbinned	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/reads/extract.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/reftrees/build_refs.py	final	Larger reference sets for B1/B2 (v2). usage: build_refs.py <gene>	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/reftrees/extract.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/reftrees/mcrA_only.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/reftrees/run_v2.sh	final	v2 placement: larger reference trees. Waits for the UniProt candidate extraction.	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/summary.py	final	Build SP07_SUMMARY.md (exact tables of the prompt) from the per-part TSVs. Missing values are written as 'none'.	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/uniprot/lca.py	final	LCA of the top-10 DIAMOND blastx hits (bitscore, SwissProt + TrEMBL pooled) per read; NCBI taxdump lineage from OX= (as SP05 s4_lca.py).	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/common/uniprot/run.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/run_B4b.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/run_SP07.sh	final	SP07 master: B6 -> B1 -> B2 -> B5 -> B3 -> B4. A failing part is logged and the next part runs.	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/run_SP07_resume.sh	final	unknown	—	SP07_final	unknown	unknown
+SP07_final	sp_bundles/SP07_final/run_catalogue.sh	final	unknown	—	SP07_final	unknown	unknown
+SP08_final	sp_bundles/SP08_final/C1_ont14_links/scripts/c1.R	final	depth profiles of every linked cluster	—	SP08_final	unknown	unknown
+SP08_final	sp_bundles/SP08_final/C1_ont14_links/scripts/load.R	final	unknown	—	SP08_final	unknown	unknown
+SP08_final	sp_bundles/SP08_final/C2_geochem_stats/scripts/c2.R	final	VIF drop, one at a time	—	SP08_final	unknown	unknown
+SP08_final	sp_bundles/SP08_final/C2_geochem_stats/scripts/load.R	final	unknown	—	SP08_final	unknown	unknown
+SP08_final	sp_bundles/SP08_final/C3_unassigned_depth/scripts/c3.R	final	unknown	—	SP08_final	unknown	unknown
+SP08_final	sp_bundles/SP08_final/C3_unassigned_depth/scripts/load.R	final	unknown	—	SP08_final	unknown	unknown
+SP08_final	sp_bundles/SP08_final/common/load.R	final	unknown	—	SP08_final	unknown	unknown
+SP08_final	sp_bundles/SP08_final/common/tables.R	final	unknown	—	SP08_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A10_combined_tree/plot_combined.R	final	maximal reference-only clades -> collapse; label with deepest shared GTDB rank	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A10_combined_tree/plot_combined_codes.R	final	maximal reference-only clades -> collapse; label with deepest shared GTDB rank	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A10_combined_tree/plot_combined_v1.R	final	maximal reference-only clades -> collapse; label with deepest shared GTDB rank	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A10_combined_tree/run_a10.sh	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A10_combined_tree/select_refs.py	final	cap families per order at 8 (type material, then quality); keep families that hold Etoliko genomes	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A11_species_panels/plot_panel.R	final	keep panel tips + outgroup tips (outgroup = tips listed in outgroup.txt)	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A11_species_panels/plot_panel_with_dDDH_column.R	final	keep panel tips + outgroup tips (outgroup = tips listed in outgroup.txt)	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A11_species_panels/plot_panel_without_dDDH.R	final	keep panel tips + outgroup tips (outgroup = tips listed in outgroup.txt)	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A11_species_panels/prep_panels.py	final	Methanofollis panel 007 also uses the shared tree: references = its A2 set	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A12_MQ_ani_screen/run_a12.sh	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A13_extra_candidates/run_a13.sh	final	A5 POCP (type species / GTDB rep, same rule as A5)	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A4_aai/aai_guard.sh	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A6_trees/run_a6.sh	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A6_trees/scripts/labels.py	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A6_trees/scripts/plot_tree.R	final	support: IQ-TREE node labels "SH/UFB"	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A6_trees/v2/run_a6.sh	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A7_maps/run_cgview.sh	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A7_maps/run_cog_maps.sh	final	2-column table: locus_tag, COG letter (first letter if several)	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A7_maps/run_maps.sh	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A7_maps/run_maps2.sh	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A7_maps/run_maps_extra.sh	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A7_maps/scripts/cgview_inputs.py	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A7_maps/scripts/plot_map.py	final	unknown	—	SP09_final	unknown	unknown
+SP09_final	sp_bundles/SP09_final/A8_table/build_a8.py	final	GTDB-Tk RED: SP09 rerun for the 8 HQ, workspace_2 run (same version/release) for the others	—	SP09_final	unknown	unknown
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/etoliko_figstyle.py	final	etoliko_figstyle.py -- manuscript (MDPI Microorganisms) version of the thesis house style.	—	SP10_manuscript	unknown	unknown
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/etoliko_tree.py	final	etoliko_tree.py -- Newick parsing and rectangular phylogram drawing.	—	SP10_manuscript	unknown	unknown
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig01_mag_quality.py	final	fig01_mag_quality.py -- η ποιότητα των 29 MAGs, κατά MIMAG.	—	SP10_manuscript	unknown	S_MAG_quality
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig03_function_heatmap.py	final	fig03_function_heatmap.py -- τι μπορεί να κάνει κάθε γονιδίωμα.	—	SP10_manuscript	unknown	S_function_heatmap
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig06_exchange_matrix.py	final	fig06_exchange_matrix.py -- ποιος τρέφει ποιον, στην ανακατασκευή.	47_master, 67_network	SP10_manuscript	unknown	S_exchange_matrix
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig07_what_is_exchanged.py	final	fig07_what_is_exchanged.py -- τι ανταλλάσσεται στην ανακατασκευή.	67_network	SP10_manuscript	unknown	S_compound_classes
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig09_biogeography.py	final	fig09_biogeography.py -- 29 γονιδιώματα που δεν υπάρχουν πουθενά αλλού.	14_comparative, 47_master	SP10_manuscript	unknown	S_biogeography
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig10_dsr_binning.py	final	fig10_dsr_binning.py -- σε ποιο γονιδίωμα ανήκουν τα δύο contigs του dsrAB.	57_dsr_bin	SP10_manuscript	unknown	S_dsr_binning
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig11_ani_isolates.py	final	fig11_ani_isolates.py -- the catalogue's genomes are not the cultured ones.	—	SP10_manuscript	unknown	S_ani_isolates
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig12_phylogenomics.py	final	fig12_phylogenomics.py -- where the 29 genomes sit among GTDB references.	12_phylogeny	SP10_manuscript	unknown	S_phylogenomics_archaea/S_phylogenomics_bacteria
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig13_dsr_tree.py	final	fig13_dsr_tree.py -- where the two unbinned dsrAB operons sit, and what they are.	—	SP10_manuscript	unknown	unknown
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig14_15_mcra.py	final	fig14_15_mcra.py -- the mcrA nomination, and the placement with its control.	47_master	SP10_manuscript	unknown	S_mcrA_nomination
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/fig_new_panels.py	final	SP10 E1: the three figures with no thesis script (steps 27, 18/25/28, 33/33b).	07_mags, 18_viruses, 27_rrna_corrected, 28_crispr	SP10_manuscript	unknown	S_bgc, S_rrna_corrected, S_viruses_defence
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/plot_sp05_trees.R	final	mcrA: restriction-enzyme "McrA" pruned; rooted on the ACR alpha clade when monophyletic, else drawn unrooted as written.	—	SP10_manuscript	unknown	S_dsr_trees, S_mcrA_tree
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/sp05_tree_labels.py	final	Tip tables for the SP05 mcrA / dsrA / dsrB trees (S_mcrA_tree, S_dsr_trees).	15_marker_trees, 99_thesis_audit/SP05_dsr_mcr	SP10_manuscript	unknown	unknown
+SP10_manuscript	sp_bundles/SP10_manuscript/E1_figures/scripts/translate.py	final	Switch the copied thesis figure scripts to English labels and manuscript names.	—	SP10_manuscript	unknown	unknown
+SP10_manuscript	sp_bundles/SP10_manuscript/E2_tables/scripts/build_e2.py	final	SP10 E2: export the supplementary tables. Re-reads existing outputs only; no analysis is re-run.	01_qc, 02_mapping, 03_assembly, 03_binning	SP10_manuscript	unknown	T_antismash, T_assembly, T_auxotrophy_full, T_b12_ecf, T_binning, T_cazy_family_matrix, T_env_stress, T_kofam_panels, T_mag_catalogue_full, T_mobilome_assembly, T_mobilome_crispr_hits, T_mobilome_defence, T_mobilome_proviruses, T_profilers, T_public_runs, T_pyrrolysine, T_pyrrolysine_summary, T_read_qc, T_readlevel_markers, T_recruitment_public, T_rrna_copy_correction, T_smetana_pairs, T_smetana_viable_pairs, T_strain_divergence, T_unbinned_fraction, T_unbinned_marker_levels, T_versions
+SP10_manuscript	sp_bundles/SP10_manuscript/E3_trees/scripts/plot_combined_codes_en.R	final	maximal reference-only clades -> collapse; label with deepest shared GTDB rank	—	SP10_manuscript	unknown	unknown
+SP10_manuscript	sp_bundles/SP10_manuscript/E3_trees/scripts/plot_combined_en.R	final	maximal reference-only clades -> collapse; label with deepest shared GTDB rank	—	SP10_manuscript	unknown	unknown
+SP10_manuscript	sp_bundles/SP10_manuscript/E3_trees/scripts/plot_panel_en.R	final	keep panel tips + outgroup tips (outgroup = tips listed in outgroup.txt)	—	SP10_manuscript	unknown	unknown
+SP10_manuscript	sp_bundles/SP10_manuscript/E3_trees/scripts/plot_tree_en.R	final	Same treefile + labels.tsv; changes: no title/subtitle, sans-serif >= 7 pt, 17 cm wide,	—	SP10_manuscript	unknown	unknown

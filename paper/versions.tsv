@@ -1,0 +1,151 @@
+tool	version	source
+flye	2.9.3-b1797 	NB_Genome
+medaka	medaka 2.1.1 	medaka
+minimap2	2.28-r1209 	NB_Genome
+samtools	samtools 1.22.1 Using htslib 1.22.1 Copyright (C) 2025 Genome Research Ltd. 	Busco
+jgi_summarize_bam_contig_depths	jgi_summarize_bam_contig_depths 2.18 20250528_211447 Usage: jgi_summarize_bam_contig_depths <options> sortedBam1 [ sortedBam2 ...] where options include: 	binning_env
+metabat2	MetaBAT: Metagenome Binning based on Abundance and Tetranucleotide frequency (version 2:2.18; 20250528_211447) by Don Kang (ddkang@lbl.gov), Feng Li, Jeff Froul	binning_env
+vamb	Vamb 5.0.4 	vamb_env
+SemiBin2	2.2.1 	SemiBin
+DAS_Tool	DAS Tool 1.1.7 	dastool
+checkm2	1.1.0 	checkm2
+gtdbtk	gtdbtk: version 2.7.2 Copyright 2017 Pierre-Alain Chaumeil, Aaron Mussig and Donovan Parks 	NB_Genome
+bakta	${CONDA_ENVS_SHARED}/NB_Genome/lib/python3.10/site-packages/requests/__init__.py:92: RequestsDependencyWarning: Unable to find acceptable character detec	NB_Genome
+prokka	prokka 1.15.6 	NB_Genome
+coverm	coverm 0.7.0 	coverm_env
+fastANI	version 1.33 	NB_NanoClust
+iqtree	IQ-TREE multicore version 2.3.6 for Linux x86 64-bit built Aug  4 2024 Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor, Heiko Schmidt, Dominik Schr	qiime2-amplicon-2024.10
+iqtree2	IQ-TREE multicore version 2.3.6 for Linux x86 64-bit built Aug  4 2024 Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor, Heiko Schmidt, Dominik Schr	qiime2-amplicon-2024.10
+iqtree3	IQ-TREE version 3.1.1 for Linux x86 64-bit built Apr  8 2026 Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren Contributed by Lam-Tung Nguyen	iqtree3
+FastTree	Unknown or incorrect use of option --version   FastTree protein_alignment > tree   FastTree < protein_alignment > tree 	Busco
+fasttree	Unknown or incorrect use of option --version   FastTree protein_alignment > tree   FastTree < protein_alignment > tree 	Busco
+mafft	v7.526 (2024/Apr/26) 	Busco
+trimal	trimAl v1.5.rev1 build[2025-11-25] 	trimal
+barrnap	barrnap 0.9 	NB_Genome
+tRNAscan-SE	tRNAscan-SE 2.0.13 (Jul 2026) Copyright (C) 2026 Patricia Chan and Todd Lowe                    University of California Santa Cruz 	NB_Genome
+seqkit	Error: unknown flag: --version Usage:   seqkit [command]  	prokka
+prodigal	Unknown option. Usage:  prodigal [-a trans_file] [-c] [-d nuc_file] [-f output_type]                  [-g tr_table] [-h] [-i input_file] [-m] [-n] [-o output_fi	Busco
+pyrodigal	pyrodigal v3.7.1 	NB_Genome
+hmmsearch	ERROR conda.cli.main_run:execute(142): `conda run hmmsearch --version` failed. (See above for error) Failed to parse command line: No such option "--version". U	Busco
+hmmbuild	ERROR conda.cli.main_run:execute(142): `conda run hmmbuild --version` failed. (See above for error) Failed to parse command line: No such option "--version". 	Busco
+blastn	USAGE   blastn [-h] [-help] [-import_search_strategy filename]     [-export_search_strategy filename] [-task task_name] [-db database_name] 	Busco
+makeblastdb	USAGE   makeblastdb [-h] [-help] [-help-full] [-in input_file] [-input_type type]     -dbtype molecule_type [-title database_title] [-parse_seqids] 	Busco
+kraken2	Kraken version 2.17.1 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	myenvname
+bracken	${CONDA_ENVS_USER}/tax_profile/bin/bracken: illegal option -- - Usage: bracken -v -d MY_DB -i INPUT -o OUTPUT -w OUTREPORT -r READ_LEN -l	tax_profile
+mmseqs	MMseqs2 (Many against Many sequence searching) is an open-source software suite for very fast,  parallelized protein sequence searches and clustering of huge pr	NB_Genome
+quast	QUAST v5.2.0 	NB_Genome
+metaquast	QUAST v5.2.0 (MetaQUAST mode) 	NB_Genome
+nextflow	Unknown option: --version=true -- Check the available commands and options and syntax with 'help' ERROR conda.cli.main_run:execute(142): `conda run nextflow --v	NB_Genome
+refinem	usage: refinem                {scaffold_stats,genome_stats,taxon_profile,taxon_filter,outliers,ssu_erroneous,kmeans,dbscan,split,manual,reference,compatible,mod	refinem_env
+ktImportTaxonomy	Unknown option: version 	myenvname
+diamond	diamond version 2.1.13 	Busco
+01_setup	flye	2.9.3-b1797 	NB_Genome	2026-08-17T14:57:04+03:00
+01_setup	medaka	medaka 2.1.1 	medaka	2026-08-17T14:57:06+03:00
+01_setup	minimap2	2.28-r1209 	-	2026-08-17T14:57:06+03:00
+01_setup	samtools	samtools 1.19.2 Using htslib 1.19 	-	2026-08-17T14:57:06+03:00
+01_setup	vamb	Vamb 5.0.4 	vamb_env	2026-08-17T14:57:11+03:00
+01_setup	SemiBin2	2.2.1 	SemiBin	2026-08-17T14:57:12+03:00
+01_setup	DAS_Tool	DAS Tool 1.1.7 	dastool	2026-08-17T14:57:15+03:00
+01_setup	checkm2	1.1.0 	checkm2	2026-08-17T14:57:28+03:00
+01_setup	gtdbtk	overwriting variable ['GTDBTK_DATA_PATH'] gtdbtk: version 2.7.2 Copyright 2017 Pierre-Alain Chaumeil, Aaron Mussig and Donovan Parks 	gtdbtk_env	2026-08-17T14:57:30+03:00
+01_setup	coverm	coverm 0.7.0 	coverm_env	2026-08-17T14:57:31+03:00
+01_setup	fastANI	version 1.34 	coverm_env	2026-08-17T14:57:33+03:00
+01_setup	iqtree3	IQ-TREE version 3.1.1 for Linux x86 64-bit built Apr  8 2026 Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren 	iqtree3	2026-08-17T14:57:34+03:00
+01_setup	trimal	trimAl v1.5.rev1 build[2025-11-25] 	trimal	2026-08-17T14:57:34+03:00
+01_setup	mafft	v7.505 (2022/Apr/10) 	-	2026-08-17T14:57:34+03:00
+01_setup	quast	QUAST v5.2.0 	NB_Genome	2026-08-17T14:57:37+03:00
+01_setup	barrnap	barrnap 0.9 	NB_Genome	2026-08-17T14:57:40+03:00
+01_setup	diamond	diamond version 2.1.9 	-	2026-08-17T14:57:40+03:00
+01_setup	mmseqs	18.8cc5c 	env_mmseqs	2026-08-17T14:57:41+03:00
+01_setup	kraken2	Kraken version 2.1.3 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	tax_profile	2026-08-17T14:57:43+03:00
+01_setup	seqkit	seqkit v2.3.0 	-	2026-08-17T14:57:43+03:00
+01_setup	prodigal	Prodigal V2.6.3: February, 2016 	checkm2	2026-08-17T14:57:44+03:00
+01_setup	blastn	blastn: 2.15.0+  Package: blast 2.15.0, build Nov 10 2023 17:55:33 	NB_Genome	2026-08-17T14:57:47+03:00
+01_setup	bracken	Bracken v3.0.1 	tax_profile	2026-08-17T14:57:47+03:00
+01_setup	nextflow	      N E X T F L O W       version 26.04.6 build 12646 	env_nf	2026-08-17T14:57:52+03:00
+03_assemble	flye	2.9.3-b1797 	NB_Genome	2026-08-17T16:38:06+03:00
+03_assemble	flye	DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment. Use 'conda create' to convert the directory to a conda environment. 	NB_Genome	2026-08-17T17:18:49+03:00
+03_assemble	seqkit	seqkit v2.3.0 	-	2026-08-17T17:18:50+03:00
+03_assemble	flye	DirectoryNotACondaEnvironmentError: The target directory exists, but it is not a conda environment. Use 'conda create' to convert the directory to a conda environment. 	NB_Genome	2026-08-17T17:25:55+03:00
+03_assemble	seqkit	seqkit v2.3.0 	-	2026-08-17T17:25:55+03:00
+03_assemble	flye	2.9.3-b1797 	NB_Genome	2026-08-17T17:45:30+03:00
+03_assemble	seqkit	seqkit v2.3.0 	-	2026-08-17T17:45:30+03:00
+04_polish	medaka	medaka 2.1.1 	medaka	2026-08-17T20:48:03+03:00
+04_polish	seqkit	seqkit v2.3.0 	-	2026-08-17T20:48:03+03:00
+04_polish	medaka	medaka 2.1.1 	medaka	2026-08-17T20:48:59+03:00
+04_polish	seqkit	seqkit v2.3.0 	-	2026-08-17T20:48:59+03:00
+05_map	minimap2	2.28-r1209 	-	2026-08-18T07:29:06+03:00
+05_map	samtools	samtools 1.19.2 Using htslib 1.19 	-	2026-08-18T07:29:06+03:00
+05_map	jgi_summarize_bam_contig_depths	jgi_summarize_bam_contig_depths nosha  Usage: jgi_summarize_bam_contig_depths <options> sortedBam1 [ sortedBam2 ...] 	-	2026-08-18T07:29:06+03:00
+06_bin	metabat2	MetaBAT: Metagenome Binning based on Abundance and Tetranucleotide frequency (version 2:nosha; ) by Don Kang (ddkang@lbl.gov), Feng Li, Jeff Froula, Rob Egan, and Zhong Wang (zhong	-	2026-08-18T07:48:49+03:00
+06_bin	vamb	Vamb 5.0.4 	vamb_env	2026-08-18T07:49:12+03:00
+06_bin	SemiBin2	2.2.1 	SemiBin	2026-08-18T07:49:13+03:00
+07_consensus	DAS_Tool	DAS Tool 1.1.7 	dastool	2026-08-18T09:32:53+03:00
+07_consensus	diamond	diamond version 2.1.9 	-	2026-08-18T09:32:53+03:00
+07_consensus	prodigal	Prodigal V2.6.3: February, 2016 	-	2026-08-18T09:32:53+03:00
+08_binqc	checkm2	1.1.0 	checkm2	2026-08-18T10:17:05+03:00
+08_binqc	gunc	1.0.3 	gunc_env	2026-08-18T10:17:06+03:00
+08_binqc	barrnap	barrnap 0.9 	NB_Genome	2026-08-18T10:17:06+03:00
+08_binqc	tRNAscan-SE	tRNAscan-SE 2.0.13 (Jul 2026) Copyright (C) 2026 Patricia Chan and Todd Lowe 	NB_Genome	2026-08-18T10:17:07+03:00
+08_binqc	checkm2	1.1.0 	checkm2	2026-08-18T10:44:20+03:00
+08_binqc	gunc	1.0.3 	gunc_env	2026-08-18T10:44:21+03:00
+08_binqc	barrnap	barrnap 0.9 	NB_Genome	2026-08-18T10:44:21+03:00
+08_binqc	tRNAscan-SE	tRNAscan-SE 2.0.13 (Jul 2026) Copyright (C) 2026 Patricia Chan and Todd Lowe 	NB_Genome	2026-08-18T10:44:21+03:00
+08c_matched	fastANI	version 1.34 	coverm_env	2026-08-18T11:01:02+03:00
+08d_finalize	coverm	coverm 0.7.0 	coverm_env	2026-08-18T11:18:28+03:00
+09_taxonomy	gtdbtk	gtdbtk: version 2.7.2 Copyright 2017 Pierre-Alain Chaumeil, Aaron Mussig and Donovan Parks 	gtdbtk_env	2026-08-18T11:27:35+03:00
+09_taxonomy	gtdbtk	gtdbtk: version 2.7.2 Copyright 2017 Pierre-Alain Chaumeil, Aaron Mussig and Donovan Parks 	gtdbtk_env	2026-08-18T11:32:18+03:00
+09_taxonomy	gtdbtk	gtdbtk: version 2.7.2 Copyright 2017 Pierre-Alain Chaumeil, Aaron Mussig and Donovan Parks 	gtdbtk_env	2026-08-18T12:58:09+03:00
+09_taxonomy	gtdbtk	gtdbtk: version 2.7.2 Copyright 2017 Pierre-Alain Chaumeil, Aaron Mussig and Donovan Parks 	gtdbtk_env	2026-08-18T13:07:42+03:00
+09_taxonomy	gtdbtk	gtdbtk: version 2.7.2 Copyright 2017 Pierre-Alain Chaumeil, Aaron Mussig and Donovan Parks 	gtdbtk_env	2026-08-19T00:04:37+03:00
+10_annotate	bakta	bakta 1.9.4 	NB_Genome	2026-08-19T00:28:05+03:00
+10_annotate	bakta	bakta 1.9.4 	bakta_env	2026-08-19T01:15:34+03:00
+10_annotate	bakta	bakta 1.9.4 	bakta_env	2026-08-19T07:50:44+03:00
+12_phylogeny	fastANI	version 1.34 	coverm_env	2026-08-19T09:45:01+03:00
+12_phylogeny	iqtree	IQ-TREE version 3.1.1 for Linux x86 64-bit built Apr  8 2026 Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren 	iqtree3	2026-08-19T09:45:14+03:00
+12_phylogeny	iqtree	IQ-TREE version 3.1.1 for Linux x86 64-bit built Apr  8 2026 Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren 	iqtree3	2026-08-19T09:52:09+03:00
+12b_reftrees	iqtree	IQ-TREE version 3.1.1 for Linux x86 64-bit built Apr  8 2026 Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren 	iqtree3	2026-08-19T10:15:32+03:00
+13_readprofile	kraken2	Kraken version 2.1.3 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	tax_profile	2026-08-19T10:34:00+03:00
+12b_reftrees	iqtree	IQ-TREE version 3.1.1 for Linux x86 64-bit built Apr  8 2026 Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren 	iqtree3	2026-08-19T10:44:48+03:00
+11b_kofam	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-08-19T11:18:28+03:00
+11b_kofam	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-08-19T11:44:20+03:00
+12b_reftrees	iqtree	IQ-TREE version 3.1.1 for Linux x86 64-bit built Apr  8 2026 Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren 	iqtree3	2026-08-19T13:21:56+03:00
+15_marker_trees	mafft	v7.505 (2022/Apr/10) 	-	2026-08-19T13:24:07+03:00
+15_marker_trees	mafft	v7.505 (2022/Apr/10) 	-	2026-08-19T13:25:42+03:00
+15_marker_trees	mafft	v7.505 (2022/Apr/10) 	-	2026-08-19T13:30:15+03:00
+13_readprofile	kraken2	Kraken version 2.1.3 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	tax_profile	2026-08-19T13:30:27+03:00
+12b_reftrees	iqtree	IQ-TREE version 3.1.1 for Linux x86 64-bit built Apr  8 2026 Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren 	iqtree3	2026-08-19T13:57:07+03:00
+15_marker_trees	mafft	v7.505 (2022/Apr/10) 	-	2026-08-19T17:13:32+03:00
+17_compgen	mmseqs	18.8cc5c 	env_mmseqs	2026-08-19T21:51:38+03:00
+18_viruses	genomad	geNomad, version 1.12.0 	genomad_env	2026-08-19T22:46:13+03:00
+18_viruses	genomad	geNomad, version 1.12.0 	genomad_env	2026-08-19T22:48:18+03:00
+13_readprofile	kraken2	Kraken version 2.1.3 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	tax_profile	2026-08-23T12:42:54+03:00
+13_readprofile	kraken2	Kraken version 2.1.3 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	tax_profile	2026-08-23T12:58:20+03:00
+13_readprofile	kraken2	Kraken version 2.1.3 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	tax_profile	2026-08-23T15:03:56+03:00
+22_singlem	singlem	NOT FOUND in env '${ENVS_DIR}/singlem_env'	${ENVS_DIR}/singlem_env	2026-08-23T15:22:43+03:00
+22_singlem	singlem	NOT FOUND in env '${ENVS_DIR}/singlem_env'	${ENVS_DIR}/singlem_env	2026-08-23T23:56:50+03:00
+13_readprofile	kraken2	Kraken version 2.1.3 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	tax_profile	2026-08-24T00:04:06+03:00
+13_readprofile	kraken2	Kraken version 2.1.3 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	tax_profile	2026-08-24T00:17:00+03:00
+13_readprofile	kraken2	Kraken version 2.1.3 Copyright 2013-2023, Derrick Wood (dwood@cs.jhu.edu) 	tax_profile	2026-08-24T12:16:22+03:00
+33_antismash	antismash	antiSMASH 8.0.4	docker antismash/standalone	2026-08-25T13:44:07+03:00
+33_antismash	antismash	antiSMASH 8.0.4	docker antismash/standalone	2026-08-25T14:55:07+03:00
+33_antismash	antismash	antiSMASH 8.0.4	docker antismash/standalone	2026-08-25T15:19:34+03:00
+33_antismash	antismash	antiSMASH 8.0.4	docker docker.io/antismash/standalone:8.0.4	2026-08-25T19:23:39+03:00
+33_antismash	antismash	antiSMASH 8.0.4	docker docker.io/antismash/standalone:8.0.4	2026-08-25T21:43:17+03:00
+33_antismash	antismash	antiSMASH 8.0.4	docker docker.io/antismash/standalone:8.0.4	2026-08-26T10:23:43+03:00
+33_antismash	antismash	antiSMASH 8.0.4	docker docker.io/antismash/standalone:8.0.4	2026-08-26T10:26:48+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-08-26T22:19:26+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-08-26T23:06:01+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-08-26T23:30:42+03:00
+35_kaiju	kaiju	Kaiju 1.10.1 Copyright 2015-2023 Peter Menzel, Anders Krogh 	kaiju	2026-09-04T12:24:02+03:00
+35_kaiju	kaiju_db	kaiju_db_progenomes	${DB_DIR}/kaiju/kaiju_db_progenomes.fmi	2026-09-04T12:24:02+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-09-04T12:28:35+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-09-04T12:50:59+03:00
+35_kaiju	kaiju	Kaiju 1.10.1 Copyright 2015-2023 Peter Menzel, Anders Krogh 	kaiju	2026-09-04T12:58:26+03:00
+35_kaiju	kaiju_db	kaiju_db_progenomes	${DB_DIR}/kaiju/kaiju_db_progenomes.fmi	2026-09-04T12:58:26+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-09-04T15:30:34+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-09-04T15:44:59+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-09-04T15:49:46+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-09-04T15:55:33+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-09-04T21:27:53+03:00
+36_gapclose	hmmsearch	# hmmsearch :: search profile(s) against a sequence database # HMMER 3.4 (Aug 2023); http://hmmer.org/ 	-	2026-09-04T21:48:33+03:00
