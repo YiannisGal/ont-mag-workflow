@@ -17,7 +17,9 @@ per-genome detection calls in every sample you provide.
 
 It was developed for the sediment and enrichment-culture metagenomes of
 **Etoliko Lagoon** (Western Greece), a permanently anoxic, sulfidic coastal basin, and
-reproduces that analysis step by step. Nothing in it is specific to Etoliko: point it at
+reproduces the genome-resolved analysis of the paper
+*[Long-Read Genome-Resolved Metagenomics of a Permanently Sulfidic Lagoon Sediment: Novel
+Anaerobic Lineages, Unbinned Sulfate Reducers and a Methylotrophic Route for Methanogenesis](#citation)*. Nothing in it is specific to Etoliko: point it at
 your own reads and databases and it runs the same analysis on your data.
 
 ---
@@ -332,8 +334,9 @@ These steps of the original study are case-specific; the workflow produces their
 
 If you use this workflow, please cite:
 
-> Galiatsatos, I. *et al.* Shotgun metagenomics of Etoliko Lagoon sediment and enrichment
-> cultures. *Microorganisms* (in preparation).
+> Galiatsatos, I. *et al.* Long-Read Genome-Resolved Metagenomics of a Permanently Sulfidic
+> Lagoon Sediment: Novel Anaerobic Lineages, Unbinned Sulfate Reducers and a Methylotrophic
+> Route for Methanogenesis. *Microorganisms* (in preparation).
 
 and the tools listed under [Dependencies](#dependencies).
 
