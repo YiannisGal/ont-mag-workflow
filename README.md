@@ -7,6 +7,7 @@
   <img src="https://img.shields.io/badge/reads-Oxford%20Nanopore%20R10.4.1-1f6f8b.svg" alt="Oxford Nanopore R10.4.1">
   <img src="https://img.shields.io/badge/software-conda%20%7C%20bioconda-44a833.svg" alt="conda | bioconda">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
+  <a href="https://doi.org/10.5281/zenodo.23931971"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23931971.svg" alt="DOI 10.5281/zenodo.23931971"></a>
 </p>
 
 **ont-mag-workflow** is a Snakemake workflow for genome-resolved metagenomics from
@@ -340,6 +341,10 @@ If you use this workflow, please cite:
 > Route for Methanogenesis. *Microorganisms* (in preparation).
 >
 > Data: NCBI BioProject [PRJNA1552626](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1552626).
+
+To cite the software itself, use the Zenodo archive: Galiatsatos, I. *ont-mag-workflow*, version 1.0.0. Zenodo (2026).
+[doi:10.5281/zenodo.23931972](https://doi.org/10.5281/zenodo.23931972). The concept DOI
+[10.5281/zenodo.23931971](https://doi.org/10.5281/zenodo.23931971) always resolves to the latest version.
 
 and the tools listed under [Dependencies](#dependencies).
 
